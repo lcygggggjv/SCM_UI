@@ -3,6 +3,7 @@ import string
 
 from faker import Faker
 
+
 class Mock:
 
     @staticmethod
@@ -32,7 +33,6 @@ class Mock:
 
         return strs
 
-
     @staticmethod
     def faker_num():
 
@@ -41,6 +41,7 @@ class Mock:
         st = faker.random_number(digits=5)
 
         return st
+
 
 if __name__ == '__main__':
 

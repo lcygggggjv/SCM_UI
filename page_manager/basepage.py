@@ -1,8 +1,13 @@
 from selenium import webdriver
+from selenium.common import InvalidArgumentException, TimeoutException
+from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 from utils.utils_ini import EnvironMent
+from hamcrest import assert_that, equal_to
+import allure
+
 
 def get_driver(cls):
     """单例模式，装饰器函数,通过将类以参数传入，
@@ -23,7 +28,7 @@ def get_driver(cls):
     return wrapper
 
 
-
+@get_driver
 class BasePage:
 
     """通过初始化实例driver，ChromeDriverManager插件判断是否需要更新驱动,
@@ -35,24 +40,22 @@ class BasePage:
     def __init__(self):
 
         self.driver = webdriver.Chrome(ChromeDriverManager().install())
-        self.login_setup()
 
+        self.driver.implicitly_wait(10)
+        self.login_setup()
 
     def login_setup(self):
 
         self.driver.maximize_window()
         self.driver.get(self.env.get_env_url())
-        self.driver.find_element('xpath', "tenantCode").send_keys(self.env.tenantcode())
-        self.driver.find_element('xpath', "account").send_keys(self.env.account)
-        self.driver.find_element('xpath', "password").send_keys(self.env.password)
+        self.driver.find_element('xpath', '//input[@name="tenantCode"]').send_keys(self.env.tenantcode())
+        self.driver.find_element('xpath', '//input[@name="account"]').send_keys(self.env.account())
+        self.driver.find_element('xpath', '//input[@name="password"]').send_keys(self.env.password())
         self.driver.find_element('xpath', "//button[@type='submit']").click()
-        self.show_wait_el_clickable(('xpath', "(//button[@type='button'])[1]"))
-        self.driver.find_element('xpath', "(//button[@type='button'])[1]").click()
-        self.show_wait_el_clickable(('xpath', '//p[text()="设备资产管理"]'))
-        self.driver.find_element('xpath', '//p[text()="设备资产管理"]').click()
+        self.show_wait_el_clickable(('xpath', "//span[text()='主数据']"))
+        self.driver.find_element('xpath', "//span[text()='主数据']").click()
 
         return self
-
 
     def show_wait_el_clickable(self, locator):
         """显性等待，等待元素直到被看到才点击"""
@@ -61,3 +64,53 @@ class BasePage:
         el = wait.until(expected_conditions.element_to_be_clickable(locator))
 
         return el
+
+    def get_element(self, locator):
+        """定位元素"""
+        el = self.show_wait_el_clickable(locator)
+        return el
+
+    def click(self, locator):
+        """click点击"""
+        el = self.get_element(locator)
+        try:
+            el.click()
+
+        except InvalidArgumentException as e:  # try,click点击不了，捕获异常，满足InvalidArgumentException错误类型
+            # 通过action方法点击
+            ActionChains(self.driver).click(el).perform()  # 初始化action对象
+        return self
+
+    def send_keys(self, locator, word):
+        """输入"""
+        el = self.get_element(locator)
+
+        try:
+            el.send_keys(word)
+        except:
+            ActionChains(self.driver).send_keys(el, word).perform()
+            # 先移动定位光标元素，再输入内容
+        return self
+
+    def get_alert(self, locator):
+
+        el = self.show_wait_el_clickable(locator)
+
+        return el.text
+
+    def clear(self, locator):
+        """清空"""
+        el = self.get_element(locator)
+        el.clear()
+        return self
+
+    def assert_allure_screenshot(self, actual, expected):
+        """断言失败就截图，输出再报告里"""
+
+        try:
+            assert_that(actual, equal_to(expected))
+
+        except AssertionError as e:
+            img = self.driver.get_screenshot_as_png()
+            allure.attach(img, name='用例失败截图', attachment_type=allure.attachment_type.PNG)
+            raise AssertionError(f"断言失败：预期结果：{expected} ,!= 实际结果：{actual}") from e
