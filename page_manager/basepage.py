@@ -10,25 +10,24 @@ import allure
 
 
 def get_driver(cls):
-    """单例模式，装饰器函数,通过将类以参数传入，
-    再判断是否存在实例，没有再进行实例，有直接返回
+    """单例模式，方法级别装饰器函数，放在方法上面 ,然后通过将类以参数传入，
+    再判断是否存在实例，没有再创建cls的实例，有直接返回
     """
 
-    driver = {}
+    instances = {}
 
     def wrapper(*args, **kwargs):
 
-        if cls not in driver:
+        if cls not in instances:
 
-            driver[cls] = cls(*args, **kwargs)
-
+            instances[cls] = cls(*args, **kwargs)
+            return instances[cls]
         else:
-            return driver[cls]
+            return instances[cls]
 
     return wrapper
 
 
-@get_driver
 class BasePage:
 
     """通过初始化实例driver，ChromeDriverManager插件判断是否需要更新驱动,
@@ -37,12 +36,14 @@ class BasePage:
 
     env = EnvironMent()
 
+    @get_driver
     def __init__(self):
 
         self.driver = webdriver.Chrome(ChromeDriverManager().install())
 
         self.driver.implicitly_wait(10)
         self.login_setup()
+
 
     def login_setup(self):
 
