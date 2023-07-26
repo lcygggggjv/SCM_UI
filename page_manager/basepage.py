@@ -39,11 +39,10 @@ class BasePage:
     @get_driver
     def __init__(self):
 
-        self.driver = webdriver.Chrome(ChromeDriverManager().install())
+        self.driver = webdriver.Edge()
 
         self.driver.implicitly_wait(10)
         self.login_setup()
-
 
     def login_setup(self):
 
@@ -53,10 +52,14 @@ class BasePage:
         self.driver.find_element('xpath', '//input[@name="account"]').send_keys(self.env.account())
         self.driver.find_element('xpath', '//input[@name="password"]').send_keys(self.env.password())
         self.driver.find_element('xpath', "//button[@type='submit']").click()
-        self.show_wait_el_clickable(('xpath', "//span[text()='主数据']"))
-        self.driver.find_element('xpath', "//span[text()='主数据']").click()
+        self.show_wait_el_clickable(('xpath', "//span[text()='主数据']")).click()
 
         return self
+
+    def material_category(self):
+
+        self.get_element(("xpath", "//span[text()='物料']")).click()
+        self.get_element(("xpath", "//span[text()='物料分类']")).click()
 
     def show_wait_el_clickable(self, locator):
         """显性等待，等待元素直到被看到才点击"""
@@ -115,3 +118,5 @@ class BasePage:
             img = self.driver.get_screenshot_as_png()
             allure.attach(img, name='用例失败截图', attachment_type=allure.attachment_type.PNG)
             raise AssertionError(f"断言失败：预期结果：{expected} ,!= 实际结果：{actual}") from e
+
+

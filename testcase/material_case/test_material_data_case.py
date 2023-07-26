@@ -8,9 +8,10 @@ class TestMaterial:
 
     mt = None
 
-    def setup_method(self):
+    @classmethod
+    def setup_class(cls):
 
-        self.mt = MaterialPage()
+        cls.mt = MaterialPage()
 
     @pytest.mark.P0   # po用例
     @allure.testcase(url='', name="新增物料")

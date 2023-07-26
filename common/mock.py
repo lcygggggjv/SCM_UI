@@ -34,6 +34,14 @@ class Mock:
         return strs
 
     @staticmethod
+    def faker_pystr_21():
+
+        faker = Faker()
+        strs = faker.pystr(max_chars=21)
+
+        return strs
+
+    @staticmethod
     def faker_num():
 
         faker = Faker()
@@ -47,7 +55,7 @@ if __name__ == '__main__':
 
     mock = Mock()
 
-    a2 = mock.faker_pystr()
+    a2 = mock.faker_pystr_21()
 
     print(a2)
 

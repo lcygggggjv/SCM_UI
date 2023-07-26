@@ -1,6 +1,7 @@
 from page_manager.basepage import BasePage
 from common.mock import Mock
 
+
 class MaterialPage(BasePage):
 
     def create_material(self):
