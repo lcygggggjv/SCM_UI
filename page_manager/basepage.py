@@ -1,5 +1,5 @@
 from selenium import webdriver
-from selenium.common import InvalidArgumentException, TimeoutException
+from selenium.common import InvalidArgumentException, TimeoutException, NoSuchElementException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
@@ -119,4 +119,13 @@ class BasePage:
             allure.attach(img, name='用例失败截图', attachment_type=allure.attachment_type.PNG)
             raise AssertionError(f"断言失败：预期结果：{expected} ,!= 实际结果：{actual}") from e
 
+    def is_el_present(self, locator):
+        # 判断元素是否存在，存在返回true，不存在返回false，不会报错
+        try:
+            self.driver.find_element(*locator)
+            return True
+
+        except NoSuchElementException:
+
+            return False
 

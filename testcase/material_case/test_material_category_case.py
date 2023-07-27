@@ -14,7 +14,7 @@ class TestMaterialCategory:
         self.cate.material_category()
 
     @pytest.mark.P0
-    @allure.testcase(url="", name='新增物料分类')
+    @allure.testcase(url="", name='新增一级分类')
     def test_create_material_category(self):
 
         assert_info = self.cate.create_material_category()
@@ -48,6 +48,13 @@ class TestMaterialCategory:
         assert_info = self.cate.create_category_code_uniqueness()
         self.cate.assert_allure_screenshot(assert_info, "该分类编码已存在，请重新输入")
 
+    @pytest.mark.P2
+    @allure.testcase(url="", name='新增分类2')
+    def test_create_two_category(self):
+
+        assert_info = self.cate.create_two_category()
+        self.cate.assert_allure_screenshot(assert_info, "新增成功")
+
     @pytest.mark.P0
     @allure.testcase(url="", name='编辑分类')
     def test_update_category(self):
@@ -77,7 +84,7 @@ class TestMaterialCategory:
         self.cate.assert_allure_screenshot(assert_info, "请输入20个字以内的内容")
 
     @pytest.mark.P2
-    @allure.testcase(url="", name='编辑分类名称长度校验')
+    @allure.testcase(url="", name='编辑分类名称唯一性校验')
     def test_update_category_uniqueness(self):
 
         assert_info = self.cate.create_category_code_uniqueness()
@@ -85,8 +92,21 @@ class TestMaterialCategory:
 
     @pytest.mark.P0
     @allure.testcase(url="", name='删除分类')
-    def test_update_category_uniqueness(self):
+    def test_delete_category(self):
 
         assert_info = self.cate.delete_category()
         self.cate.assert_allure_screenshot(assert_info, "删除成功")
 
+    @pytest.mark.P0
+    @allure.testcase(url="", name='新增下属分类')
+    def test_create_one_category(self):
+
+        assert_info = self.cate.create_one_category()
+        self.cate.assert_allure_screenshot(assert_info, "新增成功")
+
+    @pytest.mark.P0
+    @allure.testcase(url="", name='搜索分类')
+    def test_search_category(self):
+
+        assert_info = self.cate.search_category()
+        self.cate.assert_allure_screenshot(assert_info, "999999")
