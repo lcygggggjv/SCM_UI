@@ -43,7 +43,6 @@ class MaterialUnitPage(BasePage):
 
         self.get_element(("xpath", "//button[text()='新增单位信息']")).click()
         self.get_element(("xpath", '//input[@name="name"][@placeholder="请输入"]')).send_keys(Mock.mock_data())
-        self.get_element(("xpath", "//button[text()='确定']")).click()
         assert_info = self.get_alert(("xpath", "//div[text()='请输入5个字以内的内容']"))
         self.get_element(("xpath", "//button[text()='取消']")).click()
         return assert_info
@@ -55,7 +54,6 @@ class MaterialUnitPage(BasePage):
         self.get_element(("xpath", '//input[@name="name"][@placeholder="请输入"]')).send_keys(Mock.faker_pystr())
         self.get_element(("xpath", '//input[@name="abbreviation"][@placeholder="请输入"]')).send_keys(
             Mock.mock_data())
-        self.get_element(("xpath", "//button[text()='确定']")).click()
         assert_info = self.get_alert(("xpath", "//div[text()='请输入5个字以内的内容']"))
         self.get_element(("xpath", "//button[text()='取消']")).click()
         return assert_info
@@ -69,7 +67,6 @@ class MaterialUnitPage(BasePage):
         self.get_element(("xpath", '//input[@name="abbreviation"][@placeholder="请输入"]')).send_keys(
             Mock.faker_pystr())
         self.get_element(("xpath", '//input[@name="remark"]')).send_keys(Mock.faker_data_61())
-        # self.get_element(("xpath", "//button[text()='确定']")).click()
         assert_info = self.get_alert(("xpath", "//div[text()='请输入60个字以内的内容']"))
         time.sleep(2)
         self.get_element(("xpath", "//button[text()='取消']")).click()
@@ -80,7 +77,6 @@ class MaterialUnitPage(BasePage):
 
         self.get_element(("xpath", "//button[text()='新增单位信息']")).click()
         self.get_element(("xpath", '//input[@name="name"][@placeholder="请输入"]')).send_keys('99999')
-        self.get_element(("xpath", "//button[text()='确定']")).click()
         assert_info = self.get_alert(("xpath", "//div[text()='该单位名称已存在，请重新输入']"))
         self.get_element(("xpath", "//button[text()='取消']")).click()
         return assert_info
@@ -116,7 +112,6 @@ class MaterialUnitPage(BasePage):
         self.get_element(("xpath", '(//span[@aria-label="编辑"])[1]')).click()
         self.get_element(("xpath", '//input[@name="abbreviation"][@placeholder="请输入"]')).clear()
         self.get_element(("xpath", '//input[@name="abbreviation"][@placeholder="请输入"]')).send_keys(Mock.mock_data())
-        self.get_element(("xpath", "//button[text()='确定']")).click()
         assert_info = self.get_alert(("xpath", "//div[text()='请输入5个字以内的内容']"))
         self.get_element(("xpath", "//button[text()='取消']")).click()
         return assert_info
@@ -127,7 +122,6 @@ class MaterialUnitPage(BasePage):
         self.get_element(("xpath", '(//span[@aria-label="编辑"])[1]')).click()
         self.get_element(("xpath", '//input[@name="remark"]')).clear()
         self.get_element(("xpath", '//input[@name="remark"]')).send_keys(Mock.faker_data_61())
-        self.get_element(("xpath", "//button[text()='确定']")).click()
         assert_info = self.get_alert(("xpath", "//div[text()='请输入60个字以内的内容']"))
         self.get_element(("xpath", "//button[text()='取消']")).click()
         return assert_info
