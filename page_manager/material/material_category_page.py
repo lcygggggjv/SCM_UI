@@ -8,13 +8,13 @@ class MaterialCategoryPage(BasePage):
 
     def create_material_category(self):
         """新增一级分类"""
-
-        if self.is_el_present(('xpath', "//h6[text()='暂无数据']")):
+        time.sleep(0.3)
+        # print(self.is_el_present(('xpath', "//div[text()='999999']")))
+        if self.is_el_present(('xpath', "//div[@class='MuiBox-root css-rgvlf8']//h6")):
             self.get_element(('xpath', "//button[text()='新增一级分类']")).click()
             self.get_element(("xpath", "//input[@name='no']")).send_keys('999999')
             self.get_element(("xpath", "//input[@name='name']")).send_keys('999999')
-
-        elif self.is_el_present(('xpath', "(//div[text()='999999'])[1]")):
+        elif self.is_el_present(('xpath', "//div[text()='999999']")):
             self.get_element(('xpath', "//button[text()='新增一级分类']")).click()
             self.get_element(("xpath", "//input[@name='no']")).send_keys(Mock.faker_pystr())
             self.get_element(("xpath", "//input[@name='name']")).send_keys(Mock.faker_pystr())
