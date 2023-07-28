@@ -16,11 +16,11 @@ class Mock:
         return random_str + strs
 
     @staticmethod
-    def faker_data():
+    def faker_data_61():
 
         faker = Faker()
 
-        strs = faker.word()
+        strs = faker.pystr(max_chars=61)
 
         return strs
 
@@ -55,7 +55,7 @@ if __name__ == '__main__':
 
     mock = Mock()
 
-    a2 = mock.faker_pystr_21()
+    a2 = mock.faker_data_61()
 
     print(a2)
 

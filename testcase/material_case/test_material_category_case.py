@@ -11,7 +11,7 @@ class TestMaterialCategory:
     def setup_class(self):
 
         self.cate = MaterialCategoryPage()
-        self.cate.material_category()
+        self.cate.goto_material_category()
 
     @pytest.mark.P0
     @allure.testcase(url="", name='新增一级分类')

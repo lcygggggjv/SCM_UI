@@ -56,10 +56,15 @@ class BasePage:
 
         return self
 
-    def material_category(self):
+    def goto_material_category(self):
 
         self.get_element(("xpath", "//span[text()='物料']")).click()
         self.get_element(("xpath", "//span[text()='物料分类']")).click()
+
+    def goto_material_unit(self):
+
+        self.get_element(("xpath", "//span[text()='物料']")).click()
+        self.get_element(("xpath", "//span[text()='物料单位']")).click()
 
     def show_wait_el_clickable(self, locator):
         """显性等待，等待元素直到被看到才点击"""
@@ -119,9 +124,20 @@ class BasePage:
             allure.attach(img, name='用例失败截图', attachment_type=allure.attachment_type.PNG)
             raise AssertionError(f"断言失败：预期结果：{expected} ,!= 实际结果：{actual}") from e
 
+    def visibility_el(self, locator):
+        """这个显性等待判断元素是否被看到，能看到true，否则false"""
+        try:
+            wait = WebDriverWait(self.driver, timeout=10)
+            wait.until(expected_conditions.visibility_of_element_located(locator))
+            return True
+        except NoSuchElementException:
+
+            return False
+
     def is_el_present(self, locator):
         # 判断元素是否存在，存在返回true，不存在返回false，不会报错
         try:
+
             self.driver.find_element(*locator)
             return True
 

@@ -8,7 +8,7 @@ class MaterialCategoryPage(BasePage):
 
     def create_material_category(self):
         """新增一级分类"""
-        time.sleep(0.3)
+        time.sleep(0.5)
         # print(self.is_el_present(('xpath', "//div[text()='999999']")))
         if self.is_el_present(('xpath', "//div[@class='MuiBox-root css-rgvlf8']//h6")):
             self.get_element(('xpath', "//button[text()='新增一级分类']")).click()
