@@ -83,7 +83,7 @@ class TestMaterialUint:
         self.unit.assert_allure_screenshot(assert_info, "请输入60个字以内的内容")
 
     @pytest.mark.P2
-    @allure.testcase(url="", name='新增单位名称disabled校验')
+    @allure.testcase(url="", name='编辑单位名称disabled校验')
     def test_update_unit_disable(self):
 
         assert_info = self.unit.update_unit_disable()

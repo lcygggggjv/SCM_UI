@@ -66,6 +66,11 @@ class BasePage:
         self.get_element(("xpath", "//span[text()='物料']")).click()
         self.get_element(("xpath", "//span[text()='物料单位']")).click()
 
+    def goto_material_signal(self):
+
+        self.get_element(("xpath", "//span[text()='物料']")).click()
+        self.get_element(("xpath", "//span[text()='物料信号']")).click()
+
     def show_wait_el_clickable(self, locator):
         """显性等待，等待元素直到被看到才点击"""
         wait = WebDriverWait(self.driver, timeout=10)
@@ -79,7 +84,7 @@ class BasePage:
         el = self.show_wait_el_clickable(locator)
         return el
 
-    def click(self, locator):
+    def clicks(self, locator):
         """click点击"""
         el = self.get_element(locator)
         try:
