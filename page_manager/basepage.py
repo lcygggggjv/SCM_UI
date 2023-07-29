@@ -71,6 +71,11 @@ class BasePage:
         self.get_element(("xpath", "//span[text()='物料']")).click()
         self.get_element(("xpath", "//span[text()='物料信号']")).click()
 
+    def goto_material_unit_conversion(self):
+
+        self.get_element(("xpath", "//span[text()='物料']")).click()
+        self.get_element(("xpath", "//span[text()='物料单位换算']")).click()
+
     def show_wait_el_clickable(self, locator):
         """显性等待，等待元素直到被看到才点击"""
         wait = WebDriverWait(self.driver, timeout=10)
