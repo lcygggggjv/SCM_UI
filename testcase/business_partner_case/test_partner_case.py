@@ -28,6 +28,13 @@ class TestPartnerPage:
         self.partner.assert_allure_screenshot(assert_info, "请填写该必填项")
 
     @pytest.mark.P2
+    @allure.testcase(url="", name='新增业务伙伴编码唯一性 校验')
+    def test_create_partner_code_uniqueness(self):
+
+        assert_info = self.partner.create_partner_code_uniqueness()
+        self.partner.assert_allure_screenshot(assert_info, "该业务伙伴编码已存在，请重新输入")
+
+    @pytest.mark.P2
     @allure.testcase(url="", name='新增业务伙伴编码长度校验')
     def test_create_partner_code_length(self):
 

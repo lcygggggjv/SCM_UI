@@ -6,6 +6,8 @@ from page_manager.basepage import BasePage
 
 class PartnerPage(BasePage):
 
+    """业务伙伴编码唯一性，需要需要停留1秒，清除，再输入才提示"""
+
     mock = Mock()
 
     def create_partner(self):
@@ -55,9 +57,20 @@ class PartnerPage(BasePage):
         assert_info = self.get_alert(("xpath", "//div[text()='请填写该必填项']"))
         return assert_info
 
+    def create_partner_code_uniqueness(self):
+        """新增业务伙伴编码唯一性 校验"""
+
+        self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]').send_keys('99999')
+        time.sleep(1)
+        self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]').clear()
+        self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]').send_keys('99999')
+        assert_info = self.get_alert(("xpath", "//div[text()='该业务伙伴编码已存在，请重新输入']"))
+        return assert_info
+
     def create_partner_code_length(self):
         """新增业务伙伴编码长度 校验"""
 
+        self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]').clear()
         self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]')\
             .send_keys(self.mock.faker_pystr_21())
         assert_info = self.get_alert(("xpath", "//div[text()='请输入20个字以内的内容']"))
