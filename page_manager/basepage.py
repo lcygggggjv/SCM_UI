@@ -78,9 +78,9 @@ class BasePage:
 
     def goto_currency_page(self):
 
-        self.driver.find_element("xpath", "//span[text()='物料']").click()
-        self.driver.find_element("xpath", "//span[text()='基础信息']").click()
-        self.driver.find_element("xpath", "//span[text()='币种']").click()
+        self.get_element(("xpath", "//span[text()='物料']")).click()
+        self.get_element(("xpath", "//span[text()='基础信息']")).click()
+        self.get_element(("xpath", "//span[text()='币种']")).click()
 
     def goto_tax_rate_page(self):
 
@@ -90,9 +90,9 @@ class BasePage:
 
     def goto_reason_page(self):
 
-        self.driver.find_element("xpath", "//span[text()='物料']").click()
-        self.driver.find_element("xpath", "//span[text()='基础信息']").click()
-        self.driver.find_element("xpath", "//span[text()='原因']").click()
+        self.get_element(("xpath", "//span[text()='物料']")).click()
+        self.get_element(("xpath", "//span[text()='基础信息']")).click()
+        self.get_element(("xpath", "//span[text()='原因']")).click()
 
     def show_wait_el_clickable(self, locator):
         """显性等待，等待元素直到被看到才点击"""

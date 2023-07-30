@@ -75,6 +75,8 @@ class ReasonPage(BasePage):
         self.driver.find_element("xpath", '//input[@name="explain"][@placeholder="请输入"]').clear()
         self.driver.find_element("xpath", '//input[@name="explain"][@placeholder="请输入"]').send_keys(
             self.mock.faker_pystr())
+        self.driver.find_element("xpath", '//input[@role="combobox"][@placeholder="请选择"]').click()
+        self.driver.find_element("xpath", '//li[@data-option-index="0"]').click()
         self.driver.find_element("xpath", "//button[text()='确定']").click()
         assert_info = self.get_alert(("xpath", "//div[text()='新增成功']"))
         return assert_info
@@ -94,6 +96,7 @@ class ReasonPage(BasePage):
     def update_reason_required(self):
         """编辑原因名称必填"""
 
+        time.sleep(1)
         self.driver.find_element("xpath", '(//span[@aria-label="编辑"])[1]').click()
         self.driver.find_element("xpath", '//input[@name="explain"][@placeholder="请输入"]').clear()
         assert_info = self.get_alert(("xpath", "//div[text()='请填写该必填项']"))
@@ -102,7 +105,7 @@ class ReasonPage(BasePage):
     def update_reason_code_type_disable(self):
         """编辑原因编码，原因类型，置灰属性"""
 
-        el_list = ['//input[@name="no"][@placeholder="请输入"]', '//input[@role="combobox"][@id=":r15:"]']
+        el_list = ['//input[@name="no"][@placeholder="请输入"]', '//input[@role="combobox"][@aria-autocomplete="both"]']
 
         for xpath in el_list:
 
@@ -143,6 +146,15 @@ class ReasonPage(BasePage):
         self.driver.find_element('xpath', '//input[@name="explain"]').send_keys('88888')
         self.driver.find_element('xpath', '//button[@aria-label="查询"]').click()
         assert_info = self.get_alert(('xpath', "//td[text()='88888'][@label='原因描述']"))
+        return assert_info
+
+    def search_reason_type(self):
+        """精确搜索原因类型"""
+
+        self.driver.find_element('xpath', '//input[@role="combobox"][@aria-autocomplete="list"]').click()
+        self.driver.find_element('xpath', '//li[@data-option-index="0"]').click()
+        self.driver.find_element('xpath', '//button[@aria-label="查询"]').click()
+        assert_info = self.get_alert(('xpath', "//td[text()='取消'][@label='原因类型']"))
         return assert_info
 
     def delete_reason(self):

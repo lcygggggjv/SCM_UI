@@ -104,6 +104,13 @@ class TestReason:
         assert_info = self.reason.search_reason_name()
         self.reason.assert_allure_screenshot(assert_info, '88888')
 
+    @pytest.mark.P2
+    @allure.testcase(url="", name='搜索原因类型')
+    def test_search_reason_type(self):
+
+        assert_info = self.reason.search_reason_type()
+        self.reason.assert_allure_screenshot(assert_info, '取消')
+
     @pytest.mark.P0
     @allure.testcase(url="", name='删除原因')
     def test_delete_reason(self):
