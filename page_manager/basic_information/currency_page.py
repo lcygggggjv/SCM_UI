@@ -18,8 +18,10 @@ class CurrencyPage(BasePage):
             self.driver.find_element("xpath", '//input[@name="name"][@placeholder="请输入"]').send_keys('88888')
         elif self.is_el_present(('xpath', "//td[text()='99999'][@label='币种编码']")):
             self.driver.find_element("xpath", "//button[text()='新增币种']").click()
-            self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]').send_keys(self.mock.faker_pystr())
-            self.driver.find_element("xpath", '//input[@name="name"][@placeholder="请输入"]').send_keys(self.mock.faker_pystr())
+            self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]')\
+                .send_keys(self.mock.faker_pystr())
+            self.driver.find_element("xpath", '//input[@name="name"][@placeholder="请输入"]')\
+                .send_keys(self.mock.faker_pystr())
         else:
             self.driver.find_element("xpath", "//button[text()='新增币种']").click()
             self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]').send_keys('99999')

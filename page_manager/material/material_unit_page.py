@@ -12,19 +12,19 @@ class MaterialUnitPage(BasePage):
         if self.is_el_present(("xpath", "//h6[text()='暂无数据']")):
             self.get_element(("xpath", "//button[text()='新增单位信息']")).click()
             self.get_element(("xpath", '//input[@name="name"][@placeholder="请输入"]')).send_keys('99999')
-            self.get_element(("xpath", '//input[@name="abbreviation"][@placeholder="请输入"]')).send_keys(Mock.faker_pystr())
-            self.get_element(("xpath", '//input[@name="remark"]')).send_keys(Mock.faker_pystr())
+
         elif self.is_el_present(('xpath', "//td[text()='99999'][@label='单位名称']")):
             self.get_element(("xpath", "//button[text()='新增单位信息']")).click()
             self.get_element(("xpath", '//input[@name="name"][@placeholder="请输入"]')).send_keys(Mock.faker_pystr())
-            self.get_element(("xpath", '//input[@name="abbreviation"][@placeholder="请输入"]')).send_keys(Mock.faker_pystr())
-            self.get_element(("xpath", '//input[@name="remark"]')).send_keys(Mock.faker_pystr())
+
         else:
 
             self.get_element(("xpath", "//button[text()='新增单位信息']")).click()
             self.get_element(("xpath", '//input[@name="name"][@placeholder="请输入"]')).send_keys('99999')
-            self.get_element(("xpath", '//input[@name="abbreviation"][@placeholder="请输入"]')).send_keys(Mock.faker_pystr())
-            self.get_element(("xpath", '//input[@name="remark"]')).send_keys(Mock.faker_pystr())
+
+        self.get_element(("xpath", '//input[@name="abbreviation"][@placeholder="请输入"]')).send_keys(
+            Mock.faker_pystr())
+        self.get_element(("xpath", '//input[@name="remark"]')).send_keys(Mock.faker_pystr())
         self.get_element(("xpath", "//button[text()='确定']")).click()
         assert_info = self.get_alert(("xpath", "//div[text()='新增成功']"))
         return assert_info

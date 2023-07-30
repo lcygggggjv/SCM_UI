@@ -16,22 +16,21 @@ class ReasonPage(BasePage):
             self.driver.find_element("xpath", "//button[text()='新增原因']").click()
             self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]').send_keys('99999')
             self.driver.find_element("xpath", '//input[@name="explain"][@placeholder="请输入"]').send_keys('88888')
-            self.driver.find_element("xpath", '//input[@role="combobox"][@placeholder="请选择"]').click()
-            self.driver.find_element("xpath", '//li[@data-option-index="0"]').click()
+
         elif self.is_el_present(('xpath', "//td[text()='99999'][@label='原因编码']")):
             self.driver.find_element("xpath", "//button[text()='新增原因']").click()
             self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]')\
                 .send_keys(self.mock.faker_pystr())
             self.driver.find_element("xpath", '//input[@name="explain"][@placeholder="请输入"]')\
                 .send_keys(self.mock.faker_pystr())
-            self.driver.find_element("xpath", '//input[@role="combobox"][@placeholder="请选择"]').click()
-            self.driver.find_element("xpath", '//li[@data-option-index="0"]').click()
+
         else:
             self.driver.find_element("xpath", "//button[text()='新增原因']").click()
             self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]').send_keys('99999')
             self.driver.find_element("xpath", '//input[@name="explain"][@placeholder="请输入"]').send_keys('88888')
-            self.driver.find_element("xpath", '//input[@role="combobox"][@placeholder="请选择"]').click()
-            self.driver.find_element("xpath", '//li[@data-option-index="0"]').click()
+
+        self.driver.find_element("xpath", '//input[@role="combobox"][@placeholder="请选择"]').click()
+        self.driver.find_element("xpath", '//li[@data-option-index="0"]').click()
         self.driver.find_element("xpath", "//button[text()='确定']").click()
         assert_info = self.get_alert(("xpath", "//div[text()='新增成功']"))
         return assert_info

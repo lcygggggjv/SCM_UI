@@ -13,22 +13,21 @@ class MaterialSignalPage(BasePage):
             self.driver.find_element("xpath", "//button[text()='新增物料信号']").click()
             self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]').send_keys('99999')
             self.driver.find_element("xpath", '//input[@name="name"][@placeholder="请输入"]').send_keys('88888')
-            self.driver.find_element("xpath", '//input[@name="srmUsageStatus"][@value="NORMAL"]').click()
-            self.driver.find_element("xpath", '//input[@name="wmsUsageStatus"][@value="NORMAL"]').click()
+
         elif self.is_el_present(('xpath', "//td[text()='99999'][@label='信号编码']")):
             self.driver.find_element("xpath", "//button[text()='新增物料信号']").click()
             self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]').send_keys(
                 Mock.faker_pystr())
             self.driver.find_element("xpath", '//input[@name="name"][@placeholder="请输入"]').send_keys(
                 Mock.faker_pystr())
-            self.driver.find_element("xpath", '//input[@name="srmUsageStatus"][@value="NORMAL"]').click()
-            self.driver.find_element("xpath", '//input[@name="wmsUsageStatus"][@value="NORMAL"]').click()
+
         else:
             self.driver.find_element("xpath", "//button[text()='新增物料信号']").click()
             self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]').send_keys('99999')
             self.driver.find_element("xpath", '//input[@name="name"][@placeholder="请输入"]').send_keys('88888')
-            self.driver.find_element("xpath", '//input[@name="srmUsageStatus"][@value="NORMAL"]').click()
-            self.driver.find_element("xpath", '//input[@name="wmsUsageStatus"][@value="NORMAL"]').click()
+
+        self.driver.find_element("xpath", '//input[@name="srmUsageStatus"][@value="NORMAL"]').click()
+        self.driver.find_element("xpath", '//input[@name="wmsUsageStatus"][@value="NORMAL"]').click()
         self.driver.find_element("xpath", "//button[text()='确定']").click()
         assert_info = self.get_alert(("xpath", "//div[text()='新增成功']"))
         return assert_info

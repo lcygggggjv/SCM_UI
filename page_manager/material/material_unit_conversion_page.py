@@ -1,6 +1,5 @@
 import time
 
-from common.mock import Mock
 from page_manager.basepage import BasePage
 
 
@@ -140,7 +139,8 @@ class MaterialUnitConversionPage(BasePage):
         """精确搜索物料名称"""
 
         time.sleep(1.5)
-        self.driver.find_element('xpath', '//button[@aria-label="查询"]//following-sibling::button[@type="button"]').click()
+        self.driver.find_element('xpath', '//button[@aria-label="查询"]'
+                                          '//following-sibling::button[@type="button"]').click()
         self.driver.find_element('xpath', '//input[@name="materialName"]').send_keys('88888')
         self.driver.find_element('xpath', '//button[@aria-label="查询"]').click()
         assert_info = self.get_alert(('xpath', "//td[text()='88888'][@label='物料描述']"))

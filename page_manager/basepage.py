@@ -1,6 +1,7 @@
 from selenium import webdriver
-from selenium.common import InvalidArgumentException, TimeoutException, NoSuchElementException
-from selenium.webdriver import ActionChains
+from selenium.common import InvalidArgumentException, NoSuchElementException
+from selenium.webdriver import ActionChains, Keys
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
@@ -53,7 +54,6 @@ class BasePage:
         self.driver.find_element('xpath', '//input[@name="password"]').send_keys(self.env.password())
         self.driver.find_element('xpath', "//button[@type='submit']").click()
         self.show_wait_el_clickable(('xpath', "//span[text()='主数据']")).click()
-
         return self
 
     def goto_material_category(self):
@@ -76,21 +76,23 @@ class BasePage:
         self.driver.find_element("xpath", "//span[text()='物料']").click()
         self.driver.find_element("xpath", "//span[text()='物料单位换算']").click()
 
+    def goto_partner_page(self):
+
+        self.get_element(("xpath", "//span[text()='业务伙伴']")).click()
+        self.get_element(("xpath", "//span[text()='业务伙伴信息']")).click()
+
     def goto_currency_page(self):
 
-        self.get_element(("xpath", "//span[text()='物料']")).click()
         self.get_element(("xpath", "//span[text()='基础信息']")).click()
         self.get_element(("xpath", "//span[text()='币种']")).click()
 
     def goto_tax_rate_page(self):
 
-        self.driver.find_element("xpath", "//span[text()='物料']").click()
-        self.driver.find_element("xpath", "//span[text()='基础信息']").click()
-        self.driver.find_element("xpath", "//span[text()='税率']").click()
+        self.get_element(("xpath", "//span[text()='基础信息']")).click()
+        self.get_element(("xpath", "//span[text()='税率']")).click()
 
     def goto_reason_page(self):
 
-        self.get_element(("xpath", "//span[text()='物料']")).click()
         self.get_element(("xpath", "//span[text()='基础信息']")).click()
         self.get_element(("xpath", "//span[text()='原因']")).click()
 
@@ -104,12 +106,20 @@ class BasePage:
 
     def get_element(self, locator):
         """定位元素"""
-        el = self.show_wait_el_clickable(locator)
+        wait = WebDriverWait(self.driver, timeout=10)
+        el = wait.until(expected_conditions.element_to_be_clickable(locator))
+
         return el
+
+    def action_click(self, el):
+        """actionChains"""
+        action = ActionChains(self.driver)
+        action.click(el).perform()
+        return self
 
     def clicks(self, locator):
         """click点击"""
-        el = self.get_element(locator)
+        el = self.driver.find_element(*locator)
         try:
             el.click()
 
@@ -173,3 +183,25 @@ class BasePage:
 
             return False
 
+    def double_click_delete(self, element):
+        # 双击删除
+        el = self.driver.find_element(By.XPATH, element)
+        ActionChains(self.driver).double_click(el).perform()
+        el.send_keys(7 * Keys.BACK_SPACE)
+        return el
+
+    def all_select_delete_mac(self, locator):
+        #  command +a  mac
+        el = self.driver.find_element(By.XPATH, locator)
+        ActionChains(self.driver).key_down(Keys.COMMAND)   # # 先按COMMAND 再按a
+        ActionChains(self.driver).send_keys("a").key_up(Keys.COMMAND).perform()   # 后面要加perform
+        el.send_keys(7 * Keys.BACK_SPACE)
+        return el
+
+    def all_select_delete_win(self, locator):
+        #  control +a   win
+        el = self.driver.find_element(By.XPATH, locator)
+        ActionChains(self.driver).key_down(Keys.CONTROL)   # # 先按control 再按a
+        ActionChains(self.driver).send_keys("a").key_up(Keys.CONTROL).perform()   # 后面要加perform
+        el.send_keys(7 * Keys.BACK_SPACE)
+        return el
