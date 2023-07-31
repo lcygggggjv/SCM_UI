@@ -183,12 +183,32 @@ class BasePage:
 
             return False
 
+    def move_to_el(self, locator):
+        """移动鼠标到元素处"""
+
+        el = self.driver.find_element(*locator)
+        actions = ActionChains(self.driver)
+        actions.move_to_element(el).perform()
+        return self
+
     def double_click_delete(self, element):
         # 双击删除
         el = self.driver.find_element(By.XPATH, element)
         ActionChains(self.driver).double_click(el).perform()
         el.send_keys(7 * Keys.BACK_SPACE)
         return el
+
+    def scroll_el(self, locator):
+        """通过定位元素来进行，水平，垂直控制滚动条，加上时间等待"""
+        # 1： self.driver.execute_script("window.scrollTo(0, 1000)")
+        # js的window.scrollTo()方法    window.scrollTo(x,y) 通过坐标(x,y)进行滑动  不行
+        # 2：设置滚动条位置
+        # execute_script(“document.documentElement.scrollTop= 位置”)
+        # driver.execute_script("document.documentElement.scrollTop=10000")  不行、
+
+        el = self.driver.find_element(*locator)
+        self.driver.execute_script("arguments[0].scrollIntoView()", el)
+        return self
 
     def all_select_delete_mac(self, locator):
         #  command +a  mac
