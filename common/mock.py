@@ -89,4 +89,3 @@ if __name__ == '__main__':
     a2 = mock.ran_phone2()
 
     print(a2)
-
