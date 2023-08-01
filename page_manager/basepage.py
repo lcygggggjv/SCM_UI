@@ -31,7 +31,7 @@ def get_driver(cls):
 
 class BasePage:
 
-    """通过初始化实例driver，ChromeDriverManager插件判断是否需要更新驱动,
+    """通过初始化实例driver，ChromeDriverManager插件判断是否需要更新驱动, 下载和浏览器对应版本的驱动,
     实例测试环境对象，获取登录url
     """
 
@@ -39,9 +39,9 @@ class BasePage:
 
     @get_driver
     def __init__(self):
+        """webdriver.Chrome(ChromeDriverManager().install()) 当前没有115版本的驱动，下载114使用"""
 
-        self.driver = webdriver.Edge()
-
+        self.driver = webdriver.Chrome()
         self.driver.implicitly_wait(10)
         self.login_setup()
 
