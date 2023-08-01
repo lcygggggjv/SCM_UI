@@ -81,11 +81,21 @@ class Mock:
 
         return phone + str2
 
+    @staticmethod
+    def ran_email():
+        """生成随机qq邮箱"""
+        fake = Faker('zh_CN')
+        qq_num = fake.random_int(min=1000, max=99999999999)
+
+        email = str(qq_num) + "@qq.com"
+
+        return email
+
 
 if __name__ == '__main__':
 
     mock = Mock()
 
-    a2 = mock.ran_phone2()
+    a2 = mock.ran_email()
 
     print(a2)

@@ -17,18 +17,25 @@ class PartnerPage(BasePage):
         if self.is_el_present(("xpath", "//h6[text()='暂无数据']")):
             self.driver.find_element("xpath", "//button[text()='新增业务伙伴信息']").click()
             self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]').send_keys('99999')
+            self.driver.find_element("xpath", '//input[@name="name"][@placeholder="请输入"]').send_keys('88888')
+            self.driver.find_element("xpath", '//input[@name="abbreviation"][@placeholder="请输入"]').send_keys('scm测试')
+
         elif self.is_el_present(('xpath', '//td[@label="业务伙伴编码"]//a[text()="99999"]')):
             self.driver.find_element("xpath", "//button[text()='新增业务伙伴信息']").click()
             self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]')\
                 .send_keys(self.mock.faker_pystr())
+            self.driver.find_element("xpath", '//input[@name="name"][@placeholder="请输入"]') \
+                .send_keys(self.mock.faker_pystr())
+            self.driver.find_element("xpath", '//input[@name="abbreviation"][@placeholder="请输入"]') \
+                .send_keys(self.mock.faker_pystr())
+
         else:
             self.driver.find_element("xpath", "//button[text()='新增业务伙伴信息']").click()
             self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]').send_keys('99999')
+            self.driver.find_element("xpath", '//input[@name="name"][@placeholder="请输入"]').send_keys('88888')
+            self.driver.find_element("xpath", '//input[@name="abbreviation"][@placeholder="请输入"]').send_keys('scm测试')
+
         self.driver.find_element("xpath", '(//div[@name="partnerType"]//input[@type="checkbox"])[1]').click()
-        self.driver.find_element("xpath", '//input[@name="name"][@placeholder="请输入"]')\
-            .send_keys(self.mock.faker_pystr())
-        self.driver.find_element("xpath", '//input[@name="abbreviation"][@placeholder="请输入"]')\
-            .send_keys(self.mock.faker_pystr())
         self.driver.find_element("xpath", '//input[@name="expectedAt"]').click()
         self.driver.find_element("xpath", '(//button[@role="gridcell"][text()="1"])[1]').click()
         self.driver.find_element("xpath", '(//button[@role="gridcell"][text()="28"])[2]').click()
@@ -319,7 +326,6 @@ class PartnerPage(BasePage):
         self.driver.find_element("xpath", '//input[@name="contactList.0.phone"]').send_keys(self.mock.faker_pystr_21())
         assert_info2 = self.get_alert(("xpath", "//div[text()='手机号格式错误，请重新输入']"))
         self.driver.find_element("xpath", '//input[@name="contactList.0.phone"]').clear()
-        # self.driver.find_element("xpath", "//button[text()='取消']").click()
         return assert_info1, assert_info2
 
     def update_code_disable(self):
@@ -347,25 +353,22 @@ class PartnerPage(BasePage):
         self.driver.find_element("xpath", "//button[text()='取消']").click()
         return assert_info
 
-    def delete_partner(self):
-        """删除业务伙伴"""
-
-        self.driver.find_element("xpath", '(//span[@aria-label="删除"]//button)[1]').click()
-        self.driver.find_element("xpath", '(//button[text()="删除"])[2]').click()
-        assert_info = self.get_alert(("xpath", "//div[text()='删除成功']"))
-        return assert_info
-
     def open_partner(self):
         """按钮激活业务伙伴"""
 
-        self.driver.find_element("xpath", '(//span[@class="MuiSwitch-thumb css-1dz63oq"])[1]').click()
+        time.sleep(1)
+        self.driver.find_element("xpath", '(//span[@class="MuiSwitch-root MuiSwitch-'
+                                          'sizeMedium css-g1zaqd"])[1]').click()
+        time.sleep(1)
         assert_info = self.get_alert(("xpath", '(//td[@label="状态"]//span)[1]'))
         return assert_info
 
     def close_partner(self):
         """按钮关闭业务伙伴"""
 
-        self.driver.find_element("xpath", '(//span[@class="MuiSwitch-thumb css-1dz63oq"])[1]').click()
+        self.driver.find_element("xpath", '(//span[@class="MuiSwitch-root MuiSwitch-'
+                                          'sizeMedium css-g1zaqd"])[1]').click()
+        time.sleep(1)
         assert_info = self.get_alert(("xpath", '(//td[@label="状态"]//span)[1]'))
         return assert_info
 
@@ -385,4 +388,112 @@ class PartnerPage(BasePage):
         self.driver.find_element("xpath", '//button[text()="冻结"]').click()
         self.driver.find_element("xpath", '(//button[text()="冻结"])[2]').click()
         assert_info = self.get_alert(("xpath", '//div[text()="冻结成功！"]'))
+        return assert_info
+
+    def look_partner_detail(self):
+        """查看业务伙伴详情"""
+
+        time.sleep(1.5)
+        self.driver.find_element("xpath", '(//td[@label="业务伙伴编码"]//a)[1]').click()
+        assert_info = self.get_alert(("xpath", '//h6[text()="基础信息"]'))
+        return assert_info
+
+    def detail_open_partner(self):
+        """详情激活业务伙伴"""
+
+        self.driver.find_element("xpath", '//button[text()="全局配置信息"]').click()
+        self.driver.find_element("xpath", '(//span[@class="MuiSwitch-root MuiSwitch-'
+                                          'sizeMedium css-g1zaqd"])[1]').click()
+        assert_info = self.get_alert(("xpath", '//span[text()="活动"]'))
+        return assert_info
+
+    def detail_close_partner(self):
+        """详情冻结业务伙伴"""
+
+        self.driver.find_element("xpath", '(//span[@class="MuiSwitch-root MuiSwitch-'
+                                          'sizeMedium css-g1zaqd"])[1]').click()
+        assert_info = self.get_alert(("xpath", '//span[text()="冻结"]'))
+        return assert_info
+
+    def create_partner_account(self):
+        """创建业务伙伴主账号"""
+
+        self.driver.find_element("xpath", '//button[text()="创建账号"]').click()
+        self.driver.find_element("xpath", '//input[@name="account"]').clear()
+        self.driver.find_element("xpath", '//input[@name="account"]').send_keys(self.mock.mock_data())
+        self.driver.find_element("xpath", '//input[@name="password"]').send_keys('teletraan')
+        self.driver.find_element("xpath", '//input[@name="email"]').send_keys(self.mock.ran_email())
+        self.driver.find_element("xpath", '//button[text()="确定"]').click()
+        time.sleep(1)
+        assert_info1 = self.get_alert(("xpath", '//div[text()="创建成功"]'))
+        self.driver.find_element("xpath", '//button[text()="复制"]').click()
+        assert_info2 = self.get_alert(("xpath", '//div[text()="复制成功"]'))
+        return assert_info1, assert_info2
+
+    def reopen_partner_password(self):
+        """重置密码"""
+
+        self.driver.find_element("xpath", '//button[text()="全局配置信息"]').click()
+        self.driver.find_element("xpath", '//button[text()="重置密码"]').click()
+        self.driver.find_element("xpath", '//button[text()="重置"]').click()
+        assert_info = self.get_alert(("xpath", '//button[text()="复制"]'))
+        self.driver.find_element("xpath", '//button[text()="复制"]').click()
+        return assert_info
+
+    def detail_delete(self):
+        """详情删除"""
+
+        self.driver.find_element("xpath", '//button[text()="删除"]').click()
+        self.driver.find_element("xpath", '(//button[text()="删除"])[2]').click()
+        assert_info = self.get_alert(("xpath", '//div[text()="删除成功"]'))
+        return assert_info
+
+    def search_code(self):
+        """物料编码搜索"""
+
+        self.driver.find_element("xpath", '//input[@name="no"]').send_keys('99999')
+        self.driver.find_element("xpath", '//button[@aria-label="查询"]').click()
+        assert_info = self.get_alert(("xpath", '//td[@label="业务伙伴编码"]//a[text()="99999"]'))
+        return assert_info
+
+    def resetting_search(self):
+        """重置搜索"""
+
+        self.driver.find_element("xpath", '//button[@aria-label="重置"]').click()
+        el = self.driver.find_element('xpath', '//input[@name="search"]')
+        assert_info = el.get_attribute('value')
+        return assert_info
+
+    def search_jc_name(self):
+        """物料物料简称搜索"""
+
+        self.driver.find_element("xpath", '//input[@name="abbreviation"]').send_keys('scm测试')
+        self.driver.find_element("xpath", '//button[@aria-label="查询"]').click()
+        assert_info = self.get_alert(("xpath", '//td[@label="业务伙伴简称"]//a[text()="scm测试"]'))
+        return assert_info
+
+    def search_name(self):
+        """物料物料全称搜索"""
+
+        self.driver.find_element("xpath", '//input[@name="name"]').send_keys('88888')
+        self.driver.find_element("xpath", '//button[@aria-label="查询"]').click()
+        assert_info = self.get_alert(("xpath", '//td[@label="业务伙伴全称"]//a[text()="88888"]'))
+        return assert_info
+
+    def list_delete(self):
+        """表单删除"""
+
+        self.driver.find_element("xpath", '(//span[@aria-label="删除"]//button)[1]').click()
+        self.driver.find_element("xpath", '(//button[text()="删除"])[2]').click()
+        assert_info = self.get_alert(("xpath", '//div[text()="删除成功"]'))
+        return assert_info
+
+    def batch_list_delete(self):
+        """批量删除"""
+
+        time.sleep(1)
+        self.driver.find_element("xpath", '(//input[@class="PrivateSwitchBase-input css-1m9pwf3"])[2]').click()
+        self.driver.find_element("xpath", '//button[text()="删除"]').click()
+        self.driver.find_element("xpath", '(//button[text()="删除"])[2]').click()
+        assert_info = self.get_alert(("xpath", '//div[text()="删除成功"]'))
         return assert_info
