@@ -11,7 +11,6 @@ class TaxRatePage(BasePage):
     def create_tax_rate(self):
         """新增税率"""
 
-        time.sleep(0.5)
         if self.is_el_present(("xpath", "//h6[text()='暂无数据']")):
             self.driver.find_element("xpath", "//button[text()='新增税率']").click()
             self.driver.find_element("xpath", '//input[@name="rate"]').send_keys(9)

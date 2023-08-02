@@ -13,7 +13,6 @@ class PartnerPage(BasePage):
     def create_partner(self):
         """新增业务伙伴"""
 
-        time.sleep(0.5)
         if self.is_el_present(("xpath", "//h6[text()='暂无数据']")):
             self.driver.find_element("xpath", "//button[text()='新增业务伙伴信息']").click()
             self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]').send_keys('99999')

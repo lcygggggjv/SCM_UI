@@ -10,7 +10,6 @@ class MaterialUnitConversionPage(BasePage):
     def create_unit_conversion(self):
         """新增单位换算信息"""
 
-        time.sleep(0.5)
         if self.is_el_present(("xpath", "//h6[text()='暂无数据']")):
             self.driver.find_element("xpath", "//button[text()='新增单位换算信息']").click()
             self.driver.find_element("xpath", '//input[@name="material.text"]//following-sibling::div//button').click()
@@ -23,7 +22,7 @@ class MaterialUnitConversionPage(BasePage):
             self.driver.find_element("xpath", "//button[text()='新增单位换算信息']").click()
             self.driver.find_element("xpath", '//input[@name="material.text"]//following-sibling::div//button').click()
             self.driver.find_element("xpath", '(//input[@type="radio"])[1]').click()
-            self.driver.find_element("xpath", '(//button[text()="确定"])[1]').click()
+            self.driver.find_element("xpath", '(//button[text()="确定"])[2]').click()
             self.driver.find_element("xpath", '//input[@role="combobox"]').click()
             self.driver.find_element("xpath", '//li[@data-option-index="0"]').click()
             self.driver.find_element("xpath", '//input[@name="targetRatio"][@type="number"]').send_keys(10)
@@ -85,6 +84,7 @@ class MaterialUnitConversionPage(BasePage):
             el = self.driver.find_element('xpath', xpath)
             if not el.get_attribute('disabled'):
                 return False
+        self.driver.find_element("xpath", "//button[text()='取消']").click()
         return True
 
     def create_conversion_two(self):

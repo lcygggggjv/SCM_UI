@@ -1,5 +1,5 @@
 from selenium import webdriver
-from selenium.common import InvalidArgumentException, NoSuchElementException
+from selenium.common import InvalidArgumentException, NoSuchElementException, TimeoutException
 from selenium.webdriver import ActionChains, Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
@@ -106,7 +106,7 @@ class BasePage:
 
     def get_element(self, locator):
         """定位元素"""
-        wait = WebDriverWait(self.driver, timeout=10)
+        wait = WebDriverWait(self.driver, 10, 1)
         el = wait.until(expected_conditions.element_to_be_clickable(locator))
 
         return el
@@ -165,10 +165,10 @@ class BasePage:
     def visibility_el(self, locator):
         """这个显性等待判断元素是否被看到，能看到true，否则false"""
         try:
-            wait = WebDriverWait(self.driver, timeout=10)
+            wait = WebDriverWait(self.driver, 3, 1)
             wait.until(expected_conditions.visibility_of_element_located(locator))
             return True
-        except NoSuchElementException:
+        except TimeoutException:
 
             return False
 
