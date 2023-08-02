@@ -437,14 +437,7 @@ class PartnerPage(BasePage):
         self.driver.find_element("xpath", '//button[text()="重置"]').click()
         assert_info = self.get_alert(("xpath", '//button[text()="复制"]'))
         self.driver.find_element("xpath", '//button[text()="复制"]').click()
-        return assert_info
-
-    def detail_delete(self):
-        """详情删除"""
-
-        self.driver.find_element("xpath", '//button[text()="删除"]').click()
-        self.driver.find_element("xpath", '(//button[text()="删除"])[2]').click()
-        assert_info = self.get_alert(("xpath", '//div[text()="删除成功"]'))
+        self.driver.find_element("xpath", '//div[@class="css-5ax1kt"]//button').click()
         return assert_info
 
     def search_code(self):
@@ -477,14 +470,62 @@ class PartnerPage(BasePage):
         self.driver.find_element("xpath", '//input[@name="name"]').send_keys('88888')
         self.driver.find_element("xpath", '//button[@aria-label="查询"]').click()
         assert_info = self.get_alert(("xpath", '//td[@label="业务伙伴全称"]//a[text()="88888"]'))
+        self.driver.find_element("xpath", '//button[@aria-label="重置"]').click()
         return assert_info
+
+    def search_account(self):
+        """搜索业务伙伴账号"""
+        text = self.get_alert(("xpath", '(//td[@label="业务伙伴账号"])[1]'))
+        self.driver.find_element("xpath", '//span[@class="MuiBadge-root BaseBadge-root css-1rzb3uu"]').click()
+        self.driver.find_element("xpath", '//input[@name="scmAccount"]').send_keys(text)
+        self.driver.find_element("xpath", '//button[@aria-label="查询"]').click()
+        if self.is_el_present(("xpath", '(//td[@label="业务伙伴账号"])[1]')):
+            return True
+        else:
+            return False
+
+    def search_partner_type(self):
+        """搜索业务伙伴类型"""
+
+        self.driver.find_element("xpath", '//div[@name="partnerType"]//input[@role="combobox"]').click()
+        self.driver.find_element("xpath", '//li[text()="客户"]').click()
+        self.driver.find_element("xpath", '//button[@aria-label="查询"]').click()
+        if self.is_el_present(("xpath", "//h6[text()='暂无数据']")):
+            return True
+        else:
+            return False
+
+    def search_partner_state(self):
+        """搜索业务伙伴状态"""
+
+        self.driver.find_element("xpath", '//button[@aria-label="重置"]').click()
+        self.driver.find_element("xpath", '//div[@name="status"]//input[@role="combobox"]').click()
+        self.driver.find_element("xpath", '//li[text()="冻结"]').click()
+        self.driver.find_element("xpath", '//button[@aria-label="查询"]').click()
+        time.sleep(0.5)
+        if self.is_el_present(("xpath", "//span[text()='活动']")):
+            return True
+        else:
+            return False
 
     def list_delete(self):
         """表单删除"""
 
+        self.driver.find_element("xpath", '//button[@aria-label="重置"]').click()
         self.driver.find_element("xpath", '(//span[@aria-label="删除"]//button)[1]').click()
         self.driver.find_element("xpath", '(//button[text()="删除"])[2]').click()
         assert_info = self.get_alert(("xpath", '//div[text()="删除成功"]'))
+        return assert_info
+
+    def detail_delete(self):
+        """详情删除"""
+
+        time.sleep(1)
+        self.driver.find_element("xpath", '(//td[@label="业务伙伴编码"]//a)[1]').click()
+        self.driver.find_element("xpath", '//button[text()="删除"]').click()
+        self.driver.find_element("xpath", '(//button[text()="删除"])[2]').click()
+        assert_info = self.get_alert(("xpath", '//div[text()="删除成功"]'))
+        self.driver.find_element("xpath", '//div[@class="css-5ax1kt"]//button').click()
         return assert_info
 
     def batch_list_delete(self):

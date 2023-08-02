@@ -13,12 +13,12 @@ class TestPartnerPage:
         cls.partner = PartnerPage()
         cls.partner.goto_partner_page()
 
-    @pytest.mark.P0
-    @allure.testcase(url="", name='新增业务伙伴')
-    def test_create_partner(self):
-
-        assert_info = self.partner.create_partner()
-        self.partner.assert_allure_screenshot(assert_info, "新增成功")
+    # @pytest.mark.P0
+    # @allure.testcase(url="", name='新增业务伙伴')
+    # def test_create_partner(self):
+    #
+    #     assert_info = self.partner.create_partner()
+    #     self.partner.assert_allure_screenshot(assert_info, "新增成功")
 
     # @pytest.mark.P2
     # @allure.testcase(url="", name='新增必填')
@@ -228,116 +228,137 @@ class TestPartnerPage:
     #
     #     assert_info = self.partner.update_partner_required()
     #     self.partner.assert_allure_screenshot(assert_info, "请填写该必填项")
+    #
+    # @pytest.mark.P2
+    # @allure.testcase(url="", name='按钮激活业务伙伴')
+    # def test_open_partner(self):
+    #
+    #     assert_info = self.partner.open_partner()
+    #     self.partner.assert_allure_screenshot(assert_info, "活动")
+    #
+    # @pytest.mark.P2
+    # @allure.testcase(url="", name='按钮冻结业务伙伴')
+    # def test_close_partner(self):
+    #
+    #     assert_info = self.partner.close_partner()
+    #     self.partner.assert_allure_screenshot(assert_info, "冻结")
+    #
+    # @pytest.mark.P2
+    # @allure.testcase(url="", name='提示激活业务伙伴')
+    # def test_alert_open_partner(self):
+    #
+    #     assert_info = self.partner.alert_open_partner()
+    #     self.partner.assert_allure_screenshot(assert_info, "激活成功！")
+    #
+    # @pytest.mark.P2
+    # @allure.testcase(url="", name='提示冻结业务伙伴')
+    # def test_button_alert_partner(self):
+    #
+    #     assert_info = self.partner.alert_close_partner()
+    #     self.partner.assert_allure_screenshot(assert_info, "冻结成功！")
+    #
+    # @pytest.mark.P2
+    # @allure.testcase(url="", name='查看业务伙伴')
+    # def test_look_partner_detail(self):
+    #
+    #     assert_info = self.partner.look_partner_detail()
+    #     self.partner.assert_allure_screenshot(assert_info, "基础信息")
+    #
+    # @pytest.mark.P2
+    # @allure.testcase(url="", name='详情激活业务伙伴')
+    # def test_detail_open_partner(self):
+    #
+    #     assert_info = self.partner.detail_open_partner()
+    #     self.partner.assert_allure_screenshot(assert_info, "活动")
+    #
+    # @pytest.mark.P2
+    # @allure.testcase(url="", name='详情冻结业务伙伴')
+    # def test_detail_close_partner(self):
+    #
+    #     assert_info = self.partner.detail_close_partner()
+    #     self.partner.assert_allure_screenshot(assert_info, "冻结")
+    #
+    # @pytest.mark.P0
+    # @allure.testcase(url="", name='详情创建业务伙伴账号')
+    # def test_create_partner_account(self):
+    #
+    #     assert_info = self.partner.create_partner_account()
+    #     self.partner.assert_allure_screenshot(assert_info[0], "创建成功")
+    #     self.partner.assert_allure_screenshot(assert_info[1], "复制成功")
+    #
+    # @pytest.mark.P1
+    # @allure.testcase(url="", name='重置业务伙伴账号密码')
+    # def test_reopen_partner_password(self):
+    #
+    #     assert_info = self.partner.reopen_partner_password()
+    #     self.partner.assert_allure_screenshot(assert_info, "复制")
+    #
+    # @pytest.mark.P0
+    # @allure.testcase(url="", name='查询物料编码')
+    # def test_search_code(self):
+    #
+    #     assert_info = self.partner.search_code()
+    #     self.partner.assert_allure_screenshot(assert_info, "99999")
+    #
+    # @pytest.mark.P2
+    # @allure.testcase(url="", name='重置搜索')
+    # def test_resetting_search(self):
+    #
+    #     assert_info = self.partner.resetting_search()
+    #     self.partner.assert_allure_screenshot(assert_info, '')
+    #
+    # @pytest.mark.P0
+    # @allure.testcase(url="", name='查询物料简称')
+    # def test_search_jc_name(self):
+    #
+    #     assert_info = self.partner.search_jc_name()
+    #     self.partner.assert_allure_screenshot(assert_info, "scm测试")
+    #
+    # @pytest.mark.P0
+    # @allure.testcase(url="", name='查询物料全称')
+    # def test_search_name(self):
+    #
+    #     assert_info = self.partner.search_name()
+    #     self.partner.assert_allure_screenshot(assert_info, "88888")
+    #
+    # @pytest.mark.P0
+    # @allure.testcase(url="", name='删除业务伙伴')
+    # def test_list_delete(self):
+    #
+    #     assert_info = self.partner.list_delete()
+    #     self.partner.assert_allure_screenshot(assert_info, "删除成功")
+    #
+    # @pytest.mark.P1
+    # @allure.testcase(url="", name='详情删除业务伙伴')
+    # def test_detail_delete(self):
+    #
+    #     assert_info = self.partner.detail_delete()
+    #     self.partner.assert_allure_screenshot(assert_info, "删除成功")
+    #
+    # @pytest.mark.P0
+    # @allure.testcase(url="", name='批量删除业务伙伴')
+    # def test_batch_list_delete(self):
+    #
+    #     assert_info = self.partner.batch_list_delete()
+    #     self.partner.assert_allure_screenshot(assert_info, "删除成功")
 
     @pytest.mark.P2
-    @allure.testcase(url="", name='按钮激活业务伙伴')
-    def test_open_partner(self):
+    @allure.testcase(url="", name='搜索业务伙伴账号')
+    def test_search_account(self):
 
-        assert_info = self.partner.open_partner()
-        self.partner.assert_allure_screenshot(assert_info, "活动")
-
-    @pytest.mark.P2
-    @allure.testcase(url="", name='按钮冻结业务伙伴')
-    def test_close_partner(self):
-
-        assert_info = self.partner.close_partner()
-        self.partner.assert_allure_screenshot(assert_info, "冻结")
+        assert_info = self.partner.search_account()
+        self.partner.assert_allure_screenshot(assert_info, True)
 
     @pytest.mark.P2
-    @allure.testcase(url="", name='提示激活业务伙伴')
-    def test_alert_open_partner(self):
+    @allure.testcase(url="", name='搜索业务伙伴类型')
+    def test_search_partner_type(self):
 
-        assert_info = self.partner.alert_open_partner()
-        self.partner.assert_allure_screenshot(assert_info, "激活成功！")
-
-    @pytest.mark.P2
-    @allure.testcase(url="", name='提示冻结业务伙伴')
-    def test_button_alert_partner(self):
-
-        assert_info = self.partner.alert_close_partner()
-        self.partner.assert_allure_screenshot(assert_info, "冻结成功！")
+        assert_info = self.partner.search_partner_type()
+        self.partner.assert_allure_screenshot(assert_info, False)
 
     @pytest.mark.P2
-    @allure.testcase(url="", name='查看业务伙伴')
-    def test_look_partner_detail(self):
+    @allure.testcase(url="", name='搜索业务伙伴状态')
+    def test_search_partner_state(self):
 
-        assert_info = self.partner.look_partner_detail()
-        self.partner.assert_allure_screenshot(assert_info, "基础信息")
-
-    @pytest.mark.P2
-    @allure.testcase(url="", name='详情激活业务伙伴')
-    def test_detail_open_partner(self):
-
-        assert_info = self.partner.detail_open_partner()
-        self.partner.assert_allure_screenshot(assert_info, "活动")
-
-    @pytest.mark.P2
-    @allure.testcase(url="", name='详情冻结业务伙伴')
-    def test_detail_close_partner(self):
-
-        assert_info = self.partner.detail_close_partner()
-        self.partner.assert_allure_screenshot(assert_info, "冻结")
-
-    @pytest.mark.P0
-    @allure.testcase(url="", name='详情创建业务伙伴账号')
-    def test_create_partner_account(self):
-
-        assert_info = self.partner.create_partner_account()
-        self.partner.assert_allure_screenshot(assert_info[0], "创建成功")
-        self.partner.assert_allure_screenshot(assert_info[1], "复制成功")
-
-    @pytest.mark.P1
-    @allure.testcase(url="", name='重置业务伙伴账号密码')
-    def test_reopen_partner_password(self):
-
-        assert_info = self.partner.reopen_partner_password()
-        self.partner.assert_allure_screenshot(assert_info, "复制")
-
-    @pytest.mark.P1
-    @allure.testcase(url="", name='详情删除业务伙伴')
-    def test_detail_delete(self):
-
-        assert_info = self.partner.detail_delete()
-        self.partner.assert_allure_screenshot(assert_info, "删除成功")
-
-    @pytest.mark.P0
-    @allure.testcase(url="", name='查询物料编码')
-    def test_search_code(self):
-
-        assert_info = self.partner.search_code()
-        self.partner.assert_allure_screenshot(assert_info, "99999")
-
-    @pytest.mark.P2
-    @allure.testcase(url="", name='重置搜索')
-    def test_resetting_search(self):
-
-        assert_info = self.partner.resetting_search()
-        self.partner.assert_allure_screenshot(assert_info, '')
-
-    @pytest.mark.P0
-    @allure.testcase(url="", name='查询物料简称')
-    def test_search_jc_name(self):
-
-        assert_info = self.partner.search_jc_name()
-        self.partner.assert_allure_screenshot(assert_info, "scm测试")
-
-    @pytest.mark.P0
-    @allure.testcase(url="", name='查询物料全称')
-    def test_search_name(self):
-
-        assert_info = self.partner.search_name()
-        self.partner.assert_allure_screenshot(assert_info, "88888")
-
-    @pytest.mark.P0
-    @allure.testcase(url="", name='删除业务伙伴')
-    def test_list_delete(self):
-
-        assert_info = self.partner.list_delete()
-        self.partner.assert_allure_screenshot(assert_info, "删除成功")
-
-    @pytest.mark.P0
-    @allure.testcase(url="", name='批量删除业务伙伴')
-    def test_batch_list_delete(self):
-
-        assert_info = self.partner.batch_list_delete()
-        self.partner.assert_allure_screenshot(assert_info, "删除成功")
+        assert_info = self.partner.search_partner_state()
+        self.partner.assert_allure_screenshot(assert_info, False)

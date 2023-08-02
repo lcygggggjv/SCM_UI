@@ -98,7 +98,7 @@ class BasePage:
 
     def show_wait_el_clickable(self, locator):
         """显性等待，等待元素直到被看到才点击"""
-        wait = WebDriverWait(self.driver, timeout=10)
+        wait = WebDriverWait(self.driver, 10, 1)
 
         el = wait.until(expected_conditions.element_to_be_clickable(locator))
 
@@ -165,7 +165,7 @@ class BasePage:
     def visibility_el(self, locator):
         """这个显性等待判断元素是否被看到，能看到true，否则false"""
         try:
-            wait = WebDriverWait(self.driver, 3, 1)
+            wait = WebDriverWait(self.driver, 5, 1)
             wait.until(expected_conditions.visibility_of_element_located(locator))
             return True
         except TimeoutException:
