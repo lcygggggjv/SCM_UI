@@ -67,7 +67,7 @@ class PartnerPage(BasePage):
         """新增业务伙伴编码唯一性 校验"""
 
         self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]').send_keys('99999')
-        time.sleep(1)
+        time.sleep(1.2)
         self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]').clear()
         self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]').send_keys('99999')
         assert_info = self.get_alert(("xpath", "//div[text()='该业务伙伴编码已存在，请重新输入']"))
@@ -185,9 +185,22 @@ class PartnerPage(BasePage):
         self.driver.find_element("xpath", '//input[@name="contactList.0.phone"]').clear()
         return assert_info1, assert_info2
 
+    def create_new_bro_verification(self):
+        """新增联系人的校验"""
+
+        self.driver.find_element("xpath", '//button[text()="新增联系人"]').click()
+        el = self.driver.find_element("xpath", '//input[@name="contactList.1.name"]')
+
+        if el.get_attribute("name") == 'contactList.1.name':
+            return True
+
+        else:
+            return False
+
     def create_partner_two(self):
         """新增业务伙伴2"""
 
+        time.sleep(1.5)
         self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]').send_keys(self.mock.faker_pystr())
         self.driver.find_element("xpath", '(//div[@name="partnerType"]//input[@type="checkbox"])[1]').click()
         self.driver.find_element("xpath", '//input[@name="name"][@placeholder="请输入"]')\
@@ -210,6 +223,7 @@ class PartnerPage(BasePage):
         self.driver.find_element("xpath", '//input[@name="contactList.0.fixedPhone"]').send_keys(self.mock.ran_phone2())
         self.driver.find_element("xpath", '//input[@name="contactList.0.position"]').send_keys(self.mock.faker_pystr())
         self.driver.find_element("xpath", '//input[@name="contactList.0.remark"]').send_keys(self.mock.faker_pystr())
+        self.driver.find_element("xpath", '(//div[@style="opacity: 1;"])[2]//button').click()
         self.driver.find_element("xpath", "//button[text()='确定']").click()
         assert_info = self.get_alert(("xpath", "//div[text()='新增成功']"))
         return assert_info
@@ -414,13 +428,75 @@ class PartnerPage(BasePage):
         assert_info = self.get_alert(("xpath", '//span[text()="冻结"]'))
         return assert_info
 
-    def create_partner_account(self):
-        """创建业务伙伴主账号"""
+    def create_account_required(self):
+        """创建业务伙伴账号必填校验"""
 
         self.driver.find_element("xpath", '//button[text()="创建账号"]').click()
         self.driver.find_element("xpath", '//input[@name="account"]').clear()
+        assert_info = self.get_alert(("xpath", '//div[text()="请填写该必填项"]'))
+        return assert_info
+
+    # def create_account_uniqueness(self):
+    #     """创建业务伙伴账号唯一性校验校验"""
+
+    def create_account_length(self):
+        """创建业务伙伴账号长度校验"""
+
+        self.driver.find_element("xpath", '//input[@name="account"]').clear()
+        self.driver.find_element("xpath", '//input[@name="account"]').send_keys('12345')
+        assert_info1 = self.get_alert(("xpath", '//div[text()="6~18位字符，只可使用英文字母、数字、下划线、”@”和“.”"]'))
+        self.driver.find_element("xpath", '//input[@name="account"]').clear()
+        self.driver.find_element("xpath", '//input[@name="account"]').send_keys(self.mock.faker_pystr_21())
+        assert_info2 = self.get_alert(("xpath", '//div[text()="请输入18个字以内的内容"]'))
+        return assert_info1, assert_info2
+
+    def create_account_chinese(self):
+        """账号的汉族，特殊符号格式校验"""
+
+        self.driver.find_element("xpath", '//input[@name="account"]').clear()
+        self.driver.find_element("xpath", '//input[@name="account"]').send_keys('中华民族伟大复兴')
+        assert_info1 = self.get_alert(("xpath", '//div[text()="6~18位字符，只可使用英文字母、数字、下划线、”@”和“.”"]'))
+        self.driver.find_element("xpath", '//input[@name="account"]').clear()
+        self.driver.find_element("xpath", '//input[@name="account"]').send_keys('**&&￥%#')
+        assert_info2 = self.get_alert(("xpath", '//div[text()="6~18位字符，只可使用英文字母、数字、下划线、”@”和“.”"]'))
+        return assert_info1, assert_info2
+
+    def create_account_random_generation(self):
+        """账号密码，随机生成"""
+
+        self.driver.find_element("xpath", '//button[text()="随机生成"]').click()
+        el = self.driver.find_element("xpath", '//input[@name="password"]')
+        if el.get_attribute("value"):
+            return True
+        else:
+            return False
+
+    def create_phone_verification(self):
+        """账号的手机号格式校验"""
+
+        self.driver.find_element("xpath", '//input[@name="phone"]').clear()
+        self.driver.find_element("xpath", '//input[@name="phone"]').send_keys(self.mock.faker_pystr())
+        assert_info = self.get_alert(("xpath", '//div[text()="请输入正确的手机号码"]'))
+        return assert_info
+
+    def create_email_verification(self):
+        """账号的邮箱格式校验"""
+
+        self.driver.find_element("xpath", '//input[@name="email"]').clear()
+        self.driver.find_element("xpath", '//input[@name="email"]').send_keys(self.mock.faker_pystr())
+        assert_info = self.get_alert(("xpath", '//div[text()="请输入正确的邮箱"]'))
+        return assert_info
+
+    def create_partner_account(self):
+        """创建业务伙伴主账号"""
+
+        self.driver.find_element("xpath", '//input[@name="account"]').clear()
         self.driver.find_element("xpath", '//input[@name="account"]').send_keys(self.mock.mock_data())
-        self.driver.find_element("xpath", '//input[@name="password"]').send_keys('teletraan')
+        self.driver.find_element("xpath", '//input[@name="password"]').clear()
+        self.driver.find_element("xpath", '//input[@name="password"]').send_keys('12345678')
+        self.driver.find_element("xpath", '//input[@name="phone"]').clear()
+        self.driver.find_element("xpath", '//input[@name="phone"]').send_keys(self.mock.rand_phone_num())
+        self.driver.find_element("xpath", '//input[@name="email"]').clear()
         self.driver.find_element("xpath", '//input[@name="email"]').send_keys(self.mock.ran_email())
         self.driver.find_element("xpath", '//button[text()="确定"]').click()
         time.sleep(1)
@@ -443,6 +519,7 @@ class PartnerPage(BasePage):
     def search_code(self):
         """物料编码搜索"""
 
+        time.sleep(1.5)
         self.driver.find_element("xpath", '//input[@name="no"]').send_keys('99999')
         self.driver.find_element("xpath", '//button[@aria-label="查询"]').click()
         assert_info = self.get_alert(("xpath", '//td[@label="业务伙伴编码"]//a[text()="99999"]'))
@@ -451,30 +528,35 @@ class PartnerPage(BasePage):
     def resetting_search(self):
         """重置搜索"""
 
+        time.sleep(1.5)
         self.driver.find_element("xpath", '//button[@aria-label="重置"]').click()
-        el = self.driver.find_element('xpath', '//input[@name="search"]')
+        el = self.driver.find_element('xpath', '//input[@name="no"]')
         assert_info = el.get_attribute('value')
         return assert_info
 
     def search_jc_name(self):
         """物料物料简称搜索"""
 
+        time.sleep(1.5)
         self.driver.find_element("xpath", '//input[@name="abbreviation"]').send_keys('scm测试')
         self.driver.find_element("xpath", '//button[@aria-label="查询"]').click()
-        assert_info = self.get_alert(("xpath", '//td[@label="业务伙伴简称"]//a[text()="scm测试"]'))
+        assert_info = self.get_alert(("xpath", '//td[@label="业务伙伴简称"][text()="scm测试"]'))
         return assert_info
 
     def search_name(self):
         """物料物料全称搜索"""
 
+        time.sleep(1)
         self.driver.find_element("xpath", '//input[@name="name"]').send_keys('88888')
         self.driver.find_element("xpath", '//button[@aria-label="查询"]').click()
-        assert_info = self.get_alert(("xpath", '//td[@label="业务伙伴全称"]//a[text()="88888"]'))
+        assert_info = self.get_alert(("xpath", '//td[@label="业务伙伴全称"][text()="88888"]'))
         self.driver.find_element("xpath", '//button[@aria-label="重置"]').click()
         return assert_info
 
     def search_account(self):
         """搜索业务伙伴账号"""
+
+        time.sleep(1)
         text = self.get_alert(("xpath", '(//td[@label="业务伙伴账号"])[1]'))
         self.driver.find_element("xpath", '//span[@class="MuiBadge-root BaseBadge-root css-1rzb3uu"]').click()
         self.driver.find_element("xpath", '//input[@name="scmAccount"]').send_keys(text)
@@ -487,6 +569,8 @@ class PartnerPage(BasePage):
     def search_partner_type(self):
         """搜索业务伙伴类型"""
 
+        time.sleep(1)
+        self.driver.find_element("xpath", '//button[@aria-label="重置"]').click()
         self.driver.find_element("xpath", '//div[@name="partnerType"]//input[@role="combobox"]').click()
         self.driver.find_element("xpath", '//li[text()="客户"]').click()
         self.driver.find_element("xpath", '//button[@aria-label="查询"]').click()
@@ -517,17 +601,6 @@ class PartnerPage(BasePage):
         assert_info = self.get_alert(("xpath", '//div[text()="删除成功"]'))
         return assert_info
 
-    def detail_delete(self):
-        """详情删除"""
-
-        time.sleep(1)
-        self.driver.find_element("xpath", '(//td[@label="业务伙伴编码"]//a)[1]').click()
-        self.driver.find_element("xpath", '//button[text()="删除"]').click()
-        self.driver.find_element("xpath", '(//button[text()="删除"])[2]').click()
-        assert_info = self.get_alert(("xpath", '//div[text()="删除成功"]'))
-        self.driver.find_element("xpath", '//div[@class="css-5ax1kt"]//button').click()
-        return assert_info
-
     def batch_list_delete(self):
         """批量删除"""
 
@@ -536,4 +609,14 @@ class PartnerPage(BasePage):
         self.driver.find_element("xpath", '//button[text()="删除"]').click()
         self.driver.find_element("xpath", '(//button[text()="删除"])[2]').click()
         assert_info = self.get_alert(("xpath", '//div[text()="删除成功"]'))
+        return assert_info
+
+    def detail_delete(self):
+        """详情删除"""
+
+        time.sleep(1)
+        self.driver.find_element("xpath", '(//td[@label="业务伙伴编码"]//a)[1]').click()
+        self.driver.find_element("xpath", '//button[text()="删除"]').click()
+        self.driver.find_element("xpath", '(//button[text()="删除"])[2]').click()
+        assert_info = self.get_alert(("xpath", '//div[text()="删除失败"]'))
         return assert_info
