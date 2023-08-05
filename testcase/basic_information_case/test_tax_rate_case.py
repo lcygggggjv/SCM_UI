@@ -3,6 +3,7 @@ import pytest
 from page_manager.basic_information.tax_rate_page import TaxRatePage
 
 
+@pytest.mark.run(order=3)
 class TestTaxRate:
 
     tax = None
@@ -12,6 +13,10 @@ class TestTaxRate:
 
         cls.tax = TaxRatePage()
         cls.tax.goto_tax_rate_page()
+
+    def teardown_class(self):
+
+        self.tax.driver.quit()
 
     @pytest.mark.P0
     @allure.testcase(url="", name='新增税率')
@@ -75,6 +80,13 @@ class TestTaxRate:
 
         assert_info = self.tax.open_checkbox()
         self.tax.assert_allure_screenshot(assert_info, "生效成功")
+
+    @pytest.mark.P0
+    @allure.testcase(url="", name='关闭生效开关')
+    def test_close_checkbox(self):
+
+        assert_info = self.tax.close_checkbox()
+        self.tax.assert_allure_screenshot(assert_info, "失效成功")
 
     @pytest.mark.P0
     @allure.testcase(url="", name='搜索税率')

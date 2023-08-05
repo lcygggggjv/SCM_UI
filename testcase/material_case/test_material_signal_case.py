@@ -4,6 +4,7 @@ import pytest
 from page_manager.material.material_signal import MaterialSignalPage
 
 
+@pytest.mark.run(order=5)
 class TestMaterialSignal:
 
     signal = None
@@ -13,6 +14,10 @@ class TestMaterialSignal:
 
         cls.signal = MaterialSignalPage()
         cls.signal.goto_material_signal()
+
+    def teardown_class(self):
+
+        self.signal.driver.quit()
 
     @pytest.mark.P0   # po用例
     @allure.testcase(url='', name="新增物料信号")

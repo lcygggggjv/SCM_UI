@@ -56,6 +56,10 @@ class BasePage:
         self.show_wait_el_clickable(('xpath', "//span[text()='主数据']")).click()
         return self
 
+    def goto_material(self):
+
+        self.driver.find_element("xpath", "//span[text()='物料通用数据']").click()
+
     def goto_material_category(self):
 
         self.driver.find_element("xpath", "//span[text()='物料']").click()

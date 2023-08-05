@@ -90,9 +90,19 @@ class TaxRatePage(BasePage):
         assert_info = self.get_alert(("xpath", "//div[text()='生效成功']"))
         return assert_info
 
+    def close_checkbox(self):
+        """关闭税率"""
+
+        time.sleep(1.8)
+        self.driver.find_element("xpath", '(//td[@label="是否生效"]//span)[1]').click()
+        self.driver.find_element("xpath", '//button[text()="失效"]').click()
+        assert_info = self.get_alert(("xpath", "//div[text()='失效成功']"))
+        return assert_info
+
     def search_tax_rate(self):
         """精确搜索税率"""
 
+        time.sleep(1)
         self.driver.find_element('xpath', '//input[@name="search"]').send_keys(9)
         self.driver.find_element('xpath', '//button[@aria-label="查询"]').click()
         assert_info = self.get_alert(('xpath', "//td[text()='9'][@label='税率（%）']"))

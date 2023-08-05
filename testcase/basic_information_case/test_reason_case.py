@@ -3,6 +3,7 @@ import pytest
 from page_manager.basic_information.reason_page import ReasonPage
 
 
+@pytest.mark.run(order=2)
 class TestReason:
 
     reason = None
@@ -12,6 +13,10 @@ class TestReason:
 
         cls.reason = ReasonPage()
         cls.reason.goto_reason_page()
+
+    def teardown_class(self):
+
+        self.reason.driver.quit()
 
     @pytest.mark.P0
     @allure.testcase(url="", name='新增原因')

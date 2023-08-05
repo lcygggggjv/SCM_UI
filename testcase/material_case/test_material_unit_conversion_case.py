@@ -4,6 +4,7 @@ import pytest
 from page_manager.material.material_unit_conversion_page import MaterialUnitConversionPage
 
 
+@pytest.mark.run(order=9)
 class TestMateriaUnitConversion:
 
     conversion = None
@@ -13,6 +14,10 @@ class TestMateriaUnitConversion:
 
         cls.conversion = MaterialUnitConversionPage()
         cls.conversion.goto_material_unit_conversion()
+
+    def teardown_class(self):
+
+        self.conversion.driver.quit()
 
     @pytest.mark.P0   # po用例
     @allure.testcase(url='', name="新增物料信号")

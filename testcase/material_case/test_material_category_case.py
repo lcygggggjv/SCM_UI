@@ -4,6 +4,7 @@ import pytest
 from page_manager.material.material_category_page import MaterialCategoryPage
 
 
+@pytest.mark.run(order=4)
 class TestMaterialCategory:
 
     cate = None
@@ -13,6 +14,10 @@ class TestMaterialCategory:
 
         cls.cate = MaterialCategoryPage()
         cls.cate.goto_material_category()
+
+    def teardown_class(self):
+
+        self.cate.driver.quit()
 
     @pytest.mark.P0
     @allure.testcase(url="", name='新增一级分类')

@@ -3,6 +3,7 @@ import pytest
 from page_manager.material.material_unit_page import MaterialUnitPage
 
 
+@pytest.mark.run(order=6)
 class TestMaterialUint:
 
     unit = None
@@ -11,6 +12,10 @@ class TestMaterialUint:
 
         self.unit = MaterialUnitPage()
         self.unit.goto_material_unit()
+
+    def teardown_class(self):
+
+        self.unit.driver.quit()
 
     @pytest.mark.P0
     @allure.testcase(url="", name='新增单位')

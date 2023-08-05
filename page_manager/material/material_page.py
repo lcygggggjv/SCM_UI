@@ -731,4 +731,3 @@ class MaterialPage(BasePage):
         self.driver.find_element("xpath", '(//button[text()="删除"])[2]').click()
         assert_info = self.get_alert(("xpath", '//div[text()="删除成功"]'))
         return assert_info
-

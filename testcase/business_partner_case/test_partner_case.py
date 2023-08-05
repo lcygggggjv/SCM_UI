@@ -3,6 +3,7 @@ import pytest
 from page_manager.business_partner.partner_information_page import PartnerPage
 
 
+@pytest.mark.run(order=8)
 class TestPartnerPage:
 
     partner = None
@@ -12,6 +13,10 @@ class TestPartnerPage:
 
         cls.partner = PartnerPage()
         cls.partner.goto_partner_page()
+
+    def teardown_class(self):
+
+        self.partner.driver.quit()
 
     @pytest.mark.P0
     @allure.testcase(url="", name='新增业务伙伴')

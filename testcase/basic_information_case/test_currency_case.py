@@ -3,6 +3,7 @@ import pytest
 from page_manager.basic_information.currency_page import CurrencyPage
 
 
+@pytest.mark.run(order=1)
 class TestCurrency:
 
     currency = None
@@ -12,6 +13,10 @@ class TestCurrency:
 
         cls.currency = CurrencyPage()
         cls.currency.goto_currency_page()
+
+    def teardown_class(self):
+
+        self.currency.driver.quit()
 
     @pytest.mark.P0
     @allure.testcase(url="", name='新增币种')
