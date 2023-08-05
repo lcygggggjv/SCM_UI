@@ -117,7 +117,7 @@ class BasePage:
         action.click(el).perform()
         return self
 
-    def clicks(self, locator):
+    def click(self, locator):
         """click点击"""
         el = self.driver.find_element(*locator)
         try:

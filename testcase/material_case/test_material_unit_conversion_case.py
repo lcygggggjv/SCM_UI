@@ -4,7 +4,7 @@ import pytest
 from page_manager.material.material_unit_conversion_page import MaterialUnitConversionPage
 
 
-class TestMaterialSignal:
+class TestMateriaUnitConversion:
 
     conversion = None
 
@@ -43,6 +43,13 @@ class TestMaterialSignal:
         self.conversion.assert_allure_screenshot(assert_info, '“基本单位”不得与“目标单位”相同')
 
     @pytest.mark.P2
+    @allure.testcase(url='', name="新增单位换算，组合已存在")
+    def test_create_already_exists(self):
+
+        assert_info = self.conversion.create_already_exists()
+        self.conversion.assert_allure_screenshot(assert_info, '“物料编码+基本单位”组合已存在，请重新选择')
+
+    @pytest.mark.P2
     @allure.testcase(url='', name="新增单位系数，小数位数3位")
     def test_create_conversion_coefficient(self):
 
@@ -57,6 +64,20 @@ class TestMaterialSignal:
         self.conversion.assert_allure_screenshot(assert_info, True)
 
     @pytest.mark.P2
+    @allure.testcase(url="", name='搜索编码')
+    def test_search_specification(self):
+
+        assert_info = self.conversion.create_detail_search_code()
+        self.conversion.assert_allure_screenshot(assert_info, True)
+
+    @pytest.mark.P2
+    @allure.testcase(url="", name='搜索名称')
+    def test_search_model(self):
+
+        assert_info = self.conversion.create_detail_search_name()
+        self.conversion.assert_allure_screenshot(assert_info, True)
+
+    @pytest.mark.P2
     @allure.testcase(url='', name="新增单位换算2")
     def test_create_conversion_two(self):
 
@@ -68,7 +89,7 @@ class TestMaterialSignal:
     def test_search_conversion_unit(self):
 
         assert_info = self.conversion.search_conversion_unit()
-        self.conversion.assert_allure_screenshot(assert_info, '99999')
+        self.conversion.assert_allure_screenshot(assert_info, True)
 
     @pytest.mark.P2
     @allure.testcase(url="", name='重置搜索基本单位')
@@ -82,7 +103,7 @@ class TestMaterialSignal:
     def test_search_conversion_material_code(self):
 
         assert_info = self.conversion.search_conversion_target_unit()
-        self.conversion.assert_allure_screenshot(assert_info, '88888')
+        self.conversion.assert_allure_screenshot(assert_info, True)
 
     @pytest.mark.P2
     @allure.testcase(url="", name='搜索物料编码')

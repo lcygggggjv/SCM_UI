@@ -56,7 +56,7 @@ class MaterialPage(BasePage):
         """新增唯一"""
 
         self.driver.find_element("xpath", "//input[@name='no'][@placeholder='请输入']").send_keys('99999')
-        time.sleep(1.3)
+        time.sleep(1.1)
         self.driver.find_element("xpath", "//input[@name='no'][@placeholder='请输入']").clear()
         self.driver.find_element("xpath", "//input[@name='no'][@placeholder='请输入']").send_keys('99999')
         assert_info = self.get_alert(("xpath", "//div[text()='该物料编码已存在，请重新输入']"))
@@ -545,6 +545,190 @@ class MaterialPage(BasePage):
 
         self.driver.find_element("xpath", "//button[text()='删除']").click()
         self.driver.find_element("xpath", "(//button[text()='删除'])[2]").click()
+        assert_info = self.get_alert(("xpath", '//div[text()="删除成功"]'))
+        return assert_info
+
+    def search_code(self):
+        """物料编码搜索，根据输入框value值，判断查询返回的是否一致"""
+
+        time.sleep(1.5)
+        self.driver.find_element("xpath", '//input[@name="no"]').send_keys('99999')
+        self.driver.find_element("xpath", '//button[@aria-label="查询"]').click()
+        el = self.driver.find_element("xpath", '//input[@name="no"]')
+        actual = self.get_alert(("xpath", '(//td[@label="物料编码"])[1]'))
+        if el.get_attribute("value") == actual:
+            return True
+        else:
+            return False
+
+    def resetting_search(self):
+        """重置搜索"""
+
+        time.sleep(1.5)
+        self.driver.find_element("xpath", '//button[@aria-label="重置"]').click()
+        el = self.driver.find_element('xpath', '//input[@name="no"]')
+        assert_info = el.get_attribute('value')
+        return assert_info
+
+    def search_name(self):
+        """物料名称搜索"""
+
+        time.sleep(1.5)
+        self.driver.find_element("xpath", '//input[@name="name"]').send_keys('88888')
+        self.driver.find_element("xpath", '//button[@aria-label="查询"]').click()
+        el = self.driver.find_element("xpath", '//input[@name="name"]')
+        actual = self.get_alert(("xpath", '(//td[@label="物料描述"])[1]'))
+        if el.get_attribute("value") == actual:
+            return True
+        else:
+            return False
+
+    def search_type(self):
+        """物料类型搜索"""
+
+        time.sleep(1)
+        self.driver.find_element("xpath", '//button[@aria-label="重置"]').click()
+        self.driver.find_element("xpath", '//div[@name="materialType"]//input[@role="combobox"]').click()
+        self.driver.find_element("xpath", '//ul[@role="listbox"]//li[text()="成本物料"]').click()
+        self.driver.find_element("xpath", '//button[@aria-label="查询"]').click()
+        assert_info = self.get_alert(("xpath", '//h6[text()="暂无数据"]'))
+        self.driver.find_element("xpath", '//button[@aria-label="重置"]').click()
+        return assert_info
+
+    def search_specification(self):
+        """搜索规格"""
+
+        time.sleep(1)
+        text = self.get_alert(("xpath", '(//td[@label="规格"])[1]'))
+        self.driver.find_element("xpath", '//div[@class="css-1yjo05o"]//button[@type="button"]').click()
+        self.driver.find_element("xpath", '//input[@name="specification"]').send_keys(text)
+        self.driver.find_element("xpath", '//button[@aria-label="查询"]').click()
+        el = self.driver.find_element("xpath", '//input[@name="specification"]')
+        actual = self.get_alert(("xpath", '(//td[@label="规格"])[1]'))
+        if el.get_attribute("value") == actual:
+            return True
+        else:
+
+            return False
+
+    def search_model(self):
+        """搜索型号"""
+
+        time.sleep(1)
+        self.driver.find_element("xpath", '//button[@aria-label="重置"]').click()
+        text = self.get_alert(("xpath", '(//td[@label="型号"])[1]'))
+        self.driver.find_element("xpath", '//input[@name="model"]').send_keys(text)
+        self.driver.find_element("xpath", '//button[@aria-label="查询"]').click()
+        el = self.driver.find_element("xpath", '//input[@name="model"]')
+        actual = self.get_alert(("xpath", '(//td[@label="型号"])[1]'))
+        if el.get_attribute("value") == actual:
+            return True
+        else:
+            return False
+
+    def search_category(self):
+        """搜索分类, 可能有多个符合的，所以不只取某个，存在即对"""
+        time.sleep(1)
+        self.driver.find_element("xpath", '//button[@aria-label="重置"]').click()
+        self.driver.find_element("xpath", '//div[@name="category"]//input[@role="combobox"]').click()
+        self.driver.find_element("xpath", '(//div[@role="button"]//input[@type="checkbox"])[1]').click()
+        self.driver.find_element("xpath", '//button[@aria-label="查询"]').click()
+        time.sleep(0.5)
+        expected = self.get_alert(("xpath", '//div[@name="category"]//div[@role="button"]//span'))
+        actual = self.get_alert(("xpath", '//td[@label="物料分类"]'))
+        if expected == actual:
+            return True
+        else:
+            return False
+
+    def search_quality(self):
+        """搜索材质"""
+
+        time.sleep(1)
+        self.driver.find_element("xpath", '//button[@aria-label="重置"]').click()
+        text = self.get_alert(("xpath", '(//td[@label="材质"])[1]'))
+        self.driver.find_element("xpath", '//input[@name="materialQuality"]').send_keys(text)
+        self.driver.find_element("xpath", '//button[@aria-label="查询"]').click()
+        el = self.driver.find_element("xpath", '//input[@name="materialQuality"]')
+        actual = self.get_alert(("xpath", '(//td[@label="材质"])[1]'))
+        if el.get_attribute("value") == actual:
+            return True
+        else:
+            return False
+
+    def search_figure_no(self):
+        """搜索图号"""
+
+        time.sleep(1)
+        self.driver.find_element("xpath", '//button[@aria-label="重置"]').click()
+        text = self.get_alert(("xpath", '(//td[@label="图号"])[1]'))
+        self.driver.find_element("xpath", '//input[@name="figureNo"]').send_keys(text)
+        self.driver.find_element("xpath", '//button[@aria-label="查询"]').click()
+        el = self.driver.find_element("xpath", '//input[@name="figureNo"]')
+        actual = self.get_alert(("xpath", '(//td[@label="图号"])[1]'))
+        if el.get_attribute("value") == actual:
+            return True
+        else:
+            return False
+
+    def search_signal(self):
+        """搜索信号"""
+
+        time.sleep(1)
+        self.driver.find_element("xpath", '//button[@aria-label="重置"]').click()
+        self.driver.find_element("xpath", '//div[@name="materialSignal"]//input').click()
+        self.driver.find_element("xpath", '//li[@data-option-index="0"]').click()
+        self.driver.find_element("xpath", '//button[@aria-label="查询"]').click()
+        time.sleep(0.5)
+        expected = self.get_alert(("xpath", '//div[@name="materialSignal"]//div[@role="button"]//span'))
+        actual = self.get_alert(("xpath", '//td[@label="物料信号"]'))
+        if expected == actual:
+            return True
+        else:
+            return False
+
+    def form_head_setting(self):
+        """表头设置"""
+
+        self.driver.find_element("xpath", '//button[@aria-label="重置"]').click()
+        self.driver.find_element("xpath", '//button[@aria-label="表头设置"]').click()
+        time.sleep(1.3)
+        self.driver.find_element("xpath", '//li[@data-rbd-draggable-id="materialType"]//input').click()
+        self.driver.find_element("xpath", '//button[text()="确定"]').click()
+        time.sleep(1)
+        if self.is_el_present(("xpath", '//th[text()="物料类型"]')):
+            return True
+        else:
+            return False
+
+    def form_head_resetting(self):
+        """表头重置"""
+
+        time.sleep(1.5)
+        self.driver.find_element("xpath", '//button[@aria-label="表头设置"]').click()
+        self.get_element(("xpath", '//button[text()="重置"]')).click()
+        if self.is_el_present(("xpath", '//th[text()="物料类型"]')):
+            return True
+        else:
+            return False
+
+    def form_delete(self):
+        """表单删除"""
+
+        time.sleep(1)
+        self.driver.find_element("xpath", '(//span[@aria-label="删除"])[1]').click()
+        self.driver.find_element("xpath", '(//button[text()="删除"])[2]').click()
+        assert_info = self.get_alert(("xpath", '//div[text()="删除成功"]'))
+        return assert_info
+
+    def batch_delete(self):
+        """批量删除"""
+
+        time.sleep(1)
+        self.driver.find_element("xpath", '(//input[@type="checkbox"])[2]').click()
+        self.driver.find_element("xpath", '(//input[@type="checkbox"])[3]').click()
+        self.driver.find_element("xpath", '//button[text()="删除"]').click()
+        self.driver.find_element("xpath", '(//button[text()="删除"])[2]').click()
         assert_info = self.get_alert(("xpath", '//div[text()="删除成功"]'))
         return assert_info
 

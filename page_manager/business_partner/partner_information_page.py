@@ -592,6 +592,31 @@ class PartnerPage(BasePage):
         else:
             return False
 
+    def form_head_setting(self):
+        """表头设置"""
+
+        self.driver.find_element("xpath", '//button[@aria-label="重置"]').click()
+        self.driver.find_element("xpath", '//button[@aria-label="表头设置"]').click()
+        time.sleep(1.3)
+        self.driver.find_element("xpath", '//li[@data-rbd-draggable-id="abbreviation"]//input').click()
+        self.driver.find_element("xpath", '//button[text()="确定"]').click()
+        time.sleep(1)
+        if self.is_el_present(("xpath", '//th[text()="业务伙伴简称"]')):
+            return True
+        else:
+            return False
+
+    def form_head_resetting(self):
+        """表头重置"""
+
+        time.sleep(1.5)
+        self.driver.find_element("xpath", '//button[@aria-label="表头设置"]').click()
+        self.get_element(("xpath", '//button[text()="重置"]')).click()
+        if self.is_el_present(("xpath", '//th[text()="业务伙伴简称"]')):
+            return True
+        else:
+            return False
+
     def list_delete(self):
         """表单删除"""
 

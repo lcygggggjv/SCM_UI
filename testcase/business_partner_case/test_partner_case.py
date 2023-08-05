@@ -393,6 +393,20 @@ class TestPartnerPage:
         assert_info = self.partner.search_partner_state()
         self.partner.assert_allure_screenshot(assert_info, False)
 
+    @pytest.mark.P2
+    @allure.testcase(url="", name='表头设置')
+    def test_form_head_setting(self):
+
+        assert_info = self.partner.form_head_setting()
+        self.partner.assert_allure_screenshot(assert_info, False)
+
+    @pytest.mark.P2
+    @allure.testcase(url="", name='表头重置')
+    def test_form_head_resetting(self):
+
+        assert_info = self.partner.form_head_resetting()
+        self.partner.assert_allure_screenshot(assert_info, True)
+
     @pytest.mark.P0
     @allure.testcase(url="", name='删除业务伙伴')
     def test_list_delete(self):
