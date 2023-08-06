@@ -14,9 +14,9 @@ class TestCurrency:
         cls.currency = CurrencyPage()
         cls.currency.goto_currency_page()
 
-    def teardown_class(self):
-
-        self.currency.driver.quit()
+    # def teardown_class(self):
+    #
+    #     self.currency.driver.quit()
 
     @pytest.mark.P0
     @allure.testcase(url="", name='新增币种')

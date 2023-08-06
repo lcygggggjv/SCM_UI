@@ -14,9 +14,9 @@ class TestReason:
         cls.reason = ReasonPage()
         cls.reason.goto_reason_page()
 
-    def teardown_class(self):
-
-        self.reason.driver.quit()
+    # def teardown_class(self):
+    #
+    #     self.reason.driver.quit()
 
     @pytest.mark.P0
     @allure.testcase(url="", name='新增原因')
