@@ -99,14 +99,14 @@ class TestMaterial:
     @allure.testcase(url='', name="新增物料3")
     def test_create_material_three(self):
 
-        assert_info = self.mt.create_material_three()
+        assert_info = self.mt.create_material_two()
         self.mt.assert_allure_screenshot(assert_info, '新增成功')
 
     @pytest.mark.P2
     @allure.testcase(url='', name="新增物料4")
     def test_create_material_four(self):
 
-        assert_info = self.mt.create_material_four()
+        assert_info = self.mt.create_material_two()
         self.mt.assert_allure_screenshot(assert_info, '新增成功')
 
     @pytest.mark.P0

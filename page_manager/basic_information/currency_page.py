@@ -11,6 +11,7 @@ class CurrencyPage(BasePage):
     def create_currency(self):
         """新增币种"""
 
+        time.sleep(1)
         if self.is_el_present(("xpath", "//h6[text()='暂无数据']")):
             self.driver.find_element("xpath", "//button[text()='新增币种']").click()
             self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]').send_keys('99999')
@@ -63,6 +64,7 @@ class CurrencyPage(BasePage):
     def create_currency_two(self):
         """新增币种2"""
 
+        time.sleep(1)
         self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]').clear()
         self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]').send_keys(self.mock.faker_pystr())
         self.driver.find_element("xpath", '//input[@name="name"][@placeholder="请输入"]').clear()
@@ -74,7 +76,8 @@ class CurrencyPage(BasePage):
 
     def create_currency_three(self):
         """新增币种3"""
-        time.sleep(1.5)
+
+        time.sleep(1)
         self.driver.find_element("xpath", "//button[text()='新增币种']").click()
         self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]') \
             .send_keys(self.mock.faker_pystr())
@@ -87,7 +90,7 @@ class CurrencyPage(BasePage):
     def setting_default_currency(self):
         """设置默认币种"""
 
-        time.sleep(1.8)
+        time.sleep(1.5)
         self.driver.find_element("xpath", "//button[text()='设置默认币种']").click()
         self.driver.find_element("xpath", '//input[@autocomplete="off"]').click()
         self.driver.find_element("xpath", '//li[@data-option-index="0"]').click()

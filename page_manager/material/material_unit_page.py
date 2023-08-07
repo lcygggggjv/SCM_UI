@@ -73,17 +73,7 @@ class MaterialUnitPage(BasePage):
     def create_unit_two(self):
         """新增单位2"""
 
-        self.driver.find_element("xpath", "//button[text()='新增单位信息']").click()
-        self.driver.find_element("xpath", '//input[@name="name"][@placeholder="请输入"]').send_keys(Mock.faker_pystr())
-        self.driver.find_element("xpath", '//input[@name="abbreviation"][@placeholder="请输入"]').send_keys(
-            Mock.faker_pystr())
-        self.driver.find_element("xpath", "//button[text()='确定']").click()
-        assert_info = self.get_alert(("xpath", "//div[text()='新增成功']"))
-        return assert_info
-
-    def create_unit_three(self):
-        """新增单位3"""
-
+        time.sleep(1.5)
         self.driver.find_element("xpath", "//button[text()='新增单位信息']").click()
         self.driver.find_element("xpath", '//input[@name="name"][@placeholder="请输入"]').send_keys(Mock.faker_pystr())
         self.driver.find_element("xpath", '//input[@name="abbreviation"][@placeholder="请输入"]').send_keys(

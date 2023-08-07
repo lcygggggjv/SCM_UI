@@ -70,7 +70,14 @@ class TestMaterialUint:
     @allure.testcase(url="", name='新增单位3')
     def test_create_unit_three(self):
 
-        assert_info = self.unit.create_unit_three()
+        assert_info = self.unit.create_unit_two()
+        self.unit.assert_allure_screenshot(assert_info, "新增成功")
+
+    @pytest.mark.P2
+    @allure.testcase(url="", name='新增单位4')
+    def test_create_unit_four(self):
+
+        assert_info = self.unit.create_unit_two()
         self.unit.assert_allure_screenshot(assert_info, "新增成功")
 
     @pytest.mark.P0

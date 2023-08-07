@@ -61,6 +61,13 @@ class TestMaterialCategory:
         assert_info = self.cate.create_one_category()
         self.cate.assert_allure_screenshot(assert_info, "新增成功")
 
+    @pytest.mark.P2
+    @allure.testcase(url="", name='新增分类2')
+    def test_create_two_category(self):
+
+        assert_info = self.cate.create_two_category()
+        self.cate.assert_allure_screenshot(assert_info, "新增成功")
+
     @pytest.mark.P0
     @allure.testcase(url="", name='编辑分类')
     def test_update_category(self):
@@ -111,8 +118,8 @@ class TestMaterialCategory:
         self.cate.assert_allure_screenshot(assert_info, "999999")
 
     @pytest.mark.P2
-    @allure.testcase(url="", name='新增分类2')
-    def test_create_two_category(self):
+    @allure.testcase(url="", name='新增分类3')
+    def test_create_three_category(self):
 
         assert_info = self.cate.create_two_category()
         self.cate.assert_allure_screenshot(assert_info, "新增成功")

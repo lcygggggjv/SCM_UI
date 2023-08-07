@@ -77,10 +77,9 @@ class MaterialCategoryPage(BasePage):
 
     def update_category(self):
         """编辑物料分类"""
-        time.sleep(2.3)
+        time.sleep(2)
         self.driver.find_element("xpath", '(//div[@style="position: relative;"]//div[@role="button"])[1]').click()
-        self.driver.find_element("xpath", '(//button[@class="MuiButtonBase-root MuiIconButton-'
-                                          'root MuiIconButton-sizeSmall css-v765fw"])[4]').click()
+        self.driver.find_element("xpath", '(//div[@class="MuiListItemSecondaryAction-root css-1ut89g8"])[1]').click()
         self.driver.find_element("xpath", "(//ul//li[text()='编辑'])[1]").click()
         self.driver.find_element("xpath", "//input[@name='no']").clear()
         self.driver.find_element("xpath", "//input[@name='name']").clear()
@@ -94,8 +93,7 @@ class MaterialCategoryPage(BasePage):
         """编辑物料分类 必填"""
         time.sleep(1.5)
         self.driver.find_element("xpath", '(//div[@style="position: relative;"]//div[@role="button"])[1]').click()
-        self.driver.find_element("xpath", '(//button[@class="MuiButtonBase-root MuiIconButton-root MuiIconButton-'
-                                          'sizeSmall css-v765fw"])[4]').click()
+        self.driver.find_element("xpath", '(//div[@class="MuiListItemSecondaryAction-root css-1ut89g8"])[1]').click()
         self.driver.find_element("xpath", "(//ul//li[text()='编辑'])[1]").click()
         self.driver.find_element("xpath", "//input[@name='no']").clear()
         self.driver.find_element("xpath", "//input[@name='name']").clear()
@@ -129,8 +127,7 @@ class MaterialCategoryPage(BasePage):
     def delete_category(self):
         """删除分类"""
         self.driver.find_element("xpath", '(//div[@style="position: relative;"]//div[@role="button"])[1]').click()
-        self.driver.find_element("xpath", '(//button[@class="MuiButtonBase-root MuiIconButton-'
-                                          'root MuiIconButton-sizeSmall css-v765fw"])[4]').click()
+        self.driver.find_element("xpath", '(//div[@class="MuiListItemSecondaryAction-root css-1ut89g8"])[1]').click()
         self.driver.find_element("xpath", "(//ul//li[text()='删除'])[1]").click()
         self.driver.find_element("xpath", "//button[text()='删除']").click()
         assert_info = self.get_alert(("xpath", "//div[text()='删除成功']"))

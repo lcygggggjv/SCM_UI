@@ -148,6 +148,13 @@ class TestPartnerPage:
         self.partner.assert_allure_screenshot(assert_info, "新增成功")
 
     @pytest.mark.P2
+    @allure.testcase(url="", name='新增业务伙伴4')
+    def test_create_partner_four(self):
+
+        assert_info = self.partner.create_partner_three()
+        self.partner.assert_allure_screenshot(assert_info, "新增成功")
+
+    @pytest.mark.P2
     @allure.testcase(url="", name='编辑业务伙伴')
     def test_update_partner(self):
 

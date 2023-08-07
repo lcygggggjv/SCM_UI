@@ -60,18 +60,17 @@ class MaterialUnitConversionPage(BasePage):
         self.driver.find_element('xpath', '//input[@role="combobox"]').click()
         self.driver.find_element('xpath', "//li[text()='99999']").click()
         self.driver.find_element('xpath', "//button[text()='确定']").click()
-        # time.sleep(1)
+        time.sleep(1)
         assert_info = self.get_alert(("xpath", "//div[text()='“基本单位”不得与“目标单位”相同']"))
         return assert_info
 
     def create_already_exists(self):
         """组合已存在"""
 
+        time.sleep(1)
         self.driver.find_element('xpath', '//input[@role="combobox"]').click()
         self.driver.find_element("xpath", '//li[@data-option-index="0"]').click()
-        time.sleep(1)
         self.driver.find_element('xpath', "//button[text()='确定']").click()
-        time.sleep(1)
         assert_info = self.get_alert(("xpath", "//div[text()='“物料编码+基本单位”组合已存在，请重新选择']"))
         return assert_info
 
@@ -104,7 +103,6 @@ class MaterialUnitConversionPage(BasePage):
 
         time.sleep(2)
         self.driver.find_element("xpath", '(//input[@name="material.text"]//following-sibling::div//button)[2]').click()
-
         self.driver.find_element("xpath", '//input[@name="no"]').send_keys('99999')
         self.driver.find_element('xpath', '(//button[@aria-label="查询"])[2]').click()
         el = self.driver.find_element("xpath", '//input[@name="no"]')
@@ -126,23 +124,22 @@ class MaterialUnitConversionPage(BasePage):
         el = self.driver.find_element("xpath", '//input[@name="name"]')
         actual = self.get_alert(("xpath", '(//td[@label="物料描述"][text()="88888"])[2]'))
         if el.get_attribute("value") == actual:
+
             return True
         else:
+
             return False
 
     def create_conversion_two(self):
         """新增单位系数2"""
 
-        self.driver.find_element("xpath", "(//button[text()='取消'])[2]").click()
-        self.driver.find_element("xpath", '//button[text()="取消"]').click()
-        # time.sleep(1)
-        self.driver.find_element("xpath", "//button[text()='新增单位换算信息']").click()
-        self.driver.find_element("xpath", '//input[@name="material.text"]//following-sibling::div//button').click()
+        self.driver.find_element("xpath", '(//button[@aria-label="重置"])[2]').click()
         time.sleep(1.5)
         self.driver.find_element("xpath", '(//input[@type="radio"])[1]').click()
         self.driver.find_element("xpath", '(//button[text()="确定"])[2]').click()
         self.driver.find_element("xpath", '//input[@role="combobox"]').click()
-        self.driver.find_element("xpath", '//li[@data-option-index="0"]').click()
+        self.driver.find_element("xpath", '//li[text()="99999"]').click()
+        self.double_click_delete('//input[@name="targetRatio"][@type="number"]')
         self.driver.find_element("xpath", '//input[@name="targetRatio"][@type="number"]').send_keys(10)
         self.driver.find_element("xpath", "//button[text()='确定']").click()
         assert_info = self.get_alert(("xpath", "//div[text()='新增成功']"))

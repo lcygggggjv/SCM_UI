@@ -37,12 +37,11 @@ class BasePage:
 
     env = EnvironMent()
 
-
     def __init__(self):
         """webdriver.Chrome(ChromeDriverManager().install()) 当前没有115版本的驱动，下载114使用"""
 
         self.driver = webdriver.Chrome()
-        self.driver.implicitly_wait(10)
+        self.driver.implicitly_wait(15)
         self.login_setup()
 
     def login_setup(self):

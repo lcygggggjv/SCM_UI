@@ -67,7 +67,7 @@ class PartnerPage(BasePage):
         """新增业务伙伴编码唯一性 校验"""
 
         self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]').send_keys('99999')
-        time.sleep(1.2)
+        time.sleep(1.5)
         self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]').clear()
         self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]').send_keys('99999')
         assert_info = self.get_alert(("xpath", "//div[text()='该业务伙伴编码已存在，请重新输入']"))
@@ -232,6 +232,7 @@ class PartnerPage(BasePage):
         """新增业务伙伴3"""
 
         time.sleep(1.5)
+        self.driver.find_element("xpath", "//button[text()='新增业务伙伴信息']").click()
         self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]').send_keys(self.mock.faker_pystr())
         self.driver.find_element("xpath", '(//div[@name="partnerType"]//input[@type="checkbox"])[1]').click()
         self.driver.find_element("xpath", '//input[@name="name"][@placeholder="请输入"]')\
@@ -254,7 +255,6 @@ class PartnerPage(BasePage):
         self.driver.find_element("xpath", '//input[@name="contactList.0.fixedPhone"]').send_keys(self.mock.ran_phone2())
         self.driver.find_element("xpath", '//input[@name="contactList.0.position"]').send_keys(self.mock.faker_pystr())
         self.driver.find_element("xpath", '//input[@name="contactList.0.remark"]').send_keys(self.mock.faker_pystr())
-        self.driver.find_element("xpath", '(//div[@style="opacity: 1;"])[2]//button').click()
         self.driver.find_element("xpath", "//button[text()='确定']").click()
         assert_info = self.get_alert(("xpath", "//div[text()='新增成功']"))
         return assert_info
@@ -446,16 +446,18 @@ class PartnerPage(BasePage):
         """详情激活业务伙伴"""
 
         self.driver.find_element("xpath", '//button[text()="全局配置信息"]').click()
-        self.driver.find_element("xpath", '(//span[@class="MuiSwitch-root MuiSwitch-'
-                                          'sizeMedium css-g1zaqd"])[1]').click()
+        time.sleep(1)
+        self.driver.find_element("xpath", '(//span[@class="MuiSwitch-root MuiSwitch-sizeMedium css-g1zaqd"])[1]')\
+            .click()
         assert_info = self.get_alert(("xpath", '//span[text()="活动"]'))
         return assert_info
 
     def detail_close_partner(self):
         """详情冻结业务伙伴"""
 
-        self.driver.find_element("xpath", '(//span[@class="MuiSwitch-root MuiSwitch-'
-                                          'sizeMedium css-g1zaqd"])[1]').click()
+        time.sleep(1)
+        self.driver.find_element("xpath", '(//span[@class="MuiSwitch-root MuiSwitch-sizeMedium css-g1zaqd"])[1]')\
+            .click()
         assert_info = self.get_alert(("xpath", '//span[text()="冻结"]'))
         return assert_info
 
