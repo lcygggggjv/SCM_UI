@@ -691,9 +691,9 @@ class MaterialPage(BasePage):
         self.driver.find_element("xpath", '(//div[@role="button"]//input[@type="checkbox"])[1]').click()
         self.driver.find_element("xpath", '//button[@aria-label="查询"]').click()
         time.sleep(0.5)
-        # expected = self.get_alert(("xpath", '//div[@name="category"]//div[@role="button"]//span'))
-        # actual = self.get_alert(("xpath", '//td[@label="物料分类"]'))
-        if self.is_el_present(("xpath", "//h6[text()='暂无数据']")):
+        expected = self.get_alert(("xpath", '//div[@name="category"]//div[@role="button"]//span'))
+        actual = self.get_alert(("xpath", '//td[@label="物料分类"]'))
+        if expected == actual:
             return True
         else:
             return False
