@@ -77,7 +77,17 @@ class MaterialUnitPage(BasePage):
         self.driver.find_element("xpath", '//input[@name="name"][@placeholder="请输入"]').send_keys(Mock.faker_pystr())
         self.driver.find_element("xpath", '//input[@name="abbreviation"][@placeholder="请输入"]').send_keys(
             Mock.faker_pystr())
-        self.driver.find_element("xpath", '//input[@name="remark"]').send_keys(Mock.faker_pystr())
+        self.driver.find_element("xpath", "//button[text()='确定']").click()
+        assert_info = self.get_alert(("xpath", "//div[text()='新增成功']"))
+        return assert_info
+
+    def create_unit_three(self):
+        """新增单位3"""
+
+        self.driver.find_element("xpath", "//button[text()='新增单位信息']").click()
+        self.driver.find_element("xpath", '//input[@name="name"][@placeholder="请输入"]').send_keys(Mock.faker_pystr())
+        self.driver.find_element("xpath", '//input[@name="abbreviation"][@placeholder="请输入"]').send_keys(
+            Mock.faker_pystr())
         self.driver.find_element("xpath", "//button[text()='确定']").click()
         assert_info = self.get_alert(("xpath", "//div[text()='新增成功']"))
         return assert_info
@@ -134,7 +144,7 @@ class MaterialUnitPage(BasePage):
         """批量删除单位"""
 
         time.sleep(1.5)
-        self.driver.find_element("xpath", '(//span[@aria-label="勾选当页"])[1]').click()
+        self.driver.find_element("xpath", '(//input[@type="checkbox"])[2]').click()
         self.driver.find_element("xpath", "//button[text()='删除']").click()
         self.driver.find_element("xpath", "(//button[text()='删除'])[2]").click()
         assert_info = self.get_alert(("xpath", "//div[text()='删除成功']"))

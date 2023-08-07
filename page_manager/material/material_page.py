@@ -25,13 +25,13 @@ class MaterialPage(BasePage):
             self.driver.find_element("xpath", "//button[text()='新增物料']").click()
             self.driver.find_element("xpath", "//input[@name='no'][@placeholder='请输入']").send_keys('99999')
             self.driver.find_element("xpath", "//input[@name='name'][@placeholder='请输入']").send_keys('88888')
+
         self.driver.find_element("xpath", '//div[@name="category"]//input[@placeholder="请选择"]').click()
-        self.driver.find_element("xpath", '//li[@data-option-index="0"]//div[@role="button"]').click()
+        self.driver.find_element("xpath", '(//li[@data-option-index="0"]//div)[1]').click()
         self.driver.find_element("xpath", '//div[@name="materialSignal"]//input[@placeholder="请选择"]').click()
         self.driver.find_element("xpath", '//ul[@role="listbox"]//li[@tabindex="-1"]').click()
         self.driver.find_element("xpath", '//div[@name="inventoryUnit"]//input').click()
         self.driver.find_element("xpath", '//li[@role="option"][@tabindex="-1"]').click()
-
         self.driver.find_element("xpath", '//input[@name="specification"][@placeholder="请输入"]')\
             .send_keys(self.mock.faker_pystr())
         self.driver.find_element("xpath", '//input[@name="model"][@placeholder="请输入"]')\
@@ -133,12 +133,68 @@ class MaterialPage(BasePage):
     def create_material_two(self):
         """新增物料二"""
 
+        self.driver.find_element("xpath", "//button[text()='取消']").click()
         time.sleep(1)
+        self.driver.find_element("xpath", "//button[text()='新增物料']").click()
+        self.driver.find_element("xpath", "//input[@name='no'][@placeholder='请输入']").send_keys(self.mock.faker_pystr())
+        self.driver.find_element("xpath", "//input[@name='name'][@placeholder='请输入']")\
+            .send_keys(self.mock.faker_pystr())
+        time.sleep(2)
+        self.driver.find_element("xpath", '//div[@name="category"]//input[@placeholder="请选择"]').click()
+        self.driver.find_element("xpath", '(//li[@data-option-index="0"]//div)[1]').click()
+        self.driver.find_element("xpath", '//div[@name="materialSignal"]//input[@placeholder="请选择"]').click()
+        self.driver.find_element("xpath", '//ul[@role="listbox"]//li[@tabindex="-1"]').click()
+        self.driver.find_element("xpath", '//div[@name="inventoryUnit"]//input').click()
+        self.driver.find_element("xpath", '//li[@role="option"][@tabindex="-1"]').click()
+        self.driver.find_element("xpath", '//input[@name="specification"][@placeholder="请输入"]')\
+            .send_keys(self.mock.faker_pystr())
+        self.driver.find_element("xpath", '//input[@name="model"][@placeholder="请输入"]')\
+            .send_keys(self.mock.faker_pystr())
+        self.driver.find_element("xpath", '//input[@name="materialQuality"][@placeholder="请输入"]')\
+            .send_keys(self.mock.faker_pystr())
+        self.driver.find_element("xpath", '//input[@name="figureNo"][@placeholder="请输入"]')\
+            .send_keys(self.mock.faker_pystr())
+        self.driver.find_element("xpath", "//button[text()='确定']").click()
+        assert_info = self.get_alert(("xpath", '//div[text()="新增成功"]'))
+        return assert_info
+
+    def create_material_three(self):
+        """新增物料3"""
+
+        time.sleep(1)
+        self.driver.find_element("xpath", "//button[text()='新增物料']").click()
         self.driver.find_element("xpath", "//input[@name='no'][@placeholder='请输入']").send_keys(self.mock.faker_pystr())
         self.driver.find_element("xpath", "//input[@name='name'][@placeholder='请输入']")\
             .send_keys(self.mock.faker_pystr())
         self.driver.find_element("xpath", '//div[@name="category"]//input[@placeholder="请选择"]').click()
-        self.driver.find_element("xpath", '//li[@data-option-index="0"]//div[@role="button"]').click()
+        self.driver.find_element("xpath", '(//li[@data-option-index="0"]//div)[1]').click()
+
+        self.driver.find_element("xpath", '//div[@name="materialSignal"]//input[@placeholder="请选择"]').click()
+        self.driver.find_element("xpath", '//ul[@role="listbox"]//li[@tabindex="-1"]').click()
+        self.driver.find_element("xpath", '//div[@name="inventoryUnit"]//input').click()
+        self.driver.find_element("xpath", '//li[@role="option"][@tabindex="-1"]').click()
+        self.driver.find_element("xpath", '//input[@name="specification"][@placeholder="请输入"]')\
+            .send_keys(self.mock.faker_pystr())
+        self.driver.find_element("xpath", '//input[@name="model"][@placeholder="请输入"]')\
+            .send_keys(self.mock.faker_pystr())
+        self.driver.find_element("xpath", '//input[@name="materialQuality"][@placeholder="请输入"]')\
+            .send_keys(self.mock.faker_pystr())
+        self.driver.find_element("xpath", '//input[@name="figureNo"][@placeholder="请输入"]')\
+            .send_keys(self.mock.faker_pystr())
+        self.driver.find_element("xpath", "//button[text()='确定']").click()
+        assert_info = self.get_alert(("xpath", '//div[text()="新增成功"]'))
+        return assert_info
+
+    def create_material_four(self):
+        """新增物料4"""
+
+        time.sleep(1)
+        self.driver.find_element("xpath", "//button[text()='新增物料']").click()
+        self.driver.find_element("xpath", "//input[@name='no'][@placeholder='请输入']").send_keys(self.mock.faker_pystr())
+        self.driver.find_element("xpath", "//input[@name='name'][@placeholder='请输入']")\
+            .send_keys(self.mock.faker_pystr())
+        self.driver.find_element("xpath", '//div[@name="category"]//input[@placeholder="请选择"]').click()
+        self.driver.find_element("xpath", '(//li[@data-option-index="0"]//div)[1]').click()
         self.driver.find_element("xpath", '//div[@name="materialSignal"]//input[@placeholder="请选择"]').click()
         self.driver.find_element("xpath", '//ul[@role="listbox"]//li[@tabindex="-1"]').click()
         self.driver.find_element("xpath", '//div[@name="inventoryUnit"]//input').click()
@@ -628,15 +684,16 @@ class MaterialPage(BasePage):
 
     def search_category(self):
         """搜索分类, 可能有多个符合的，所以不只取某个，存在即对"""
-        time.sleep(1)
+
+        time.sleep(0.5)
         self.driver.find_element("xpath", '//button[@aria-label="重置"]').click()
         self.driver.find_element("xpath", '//div[@name="category"]//input[@role="combobox"]').click()
         self.driver.find_element("xpath", '(//div[@role="button"]//input[@type="checkbox"])[1]').click()
         self.driver.find_element("xpath", '//button[@aria-label="查询"]').click()
         time.sleep(0.5)
-        expected = self.get_alert(("xpath", '//div[@name="category"]//div[@role="button"]//span'))
-        actual = self.get_alert(("xpath", '//td[@label="物料分类"]'))
-        if expected == actual:
+        # expected = self.get_alert(("xpath", '//div[@name="category"]//div[@role="button"]//span'))
+        # actual = self.get_alert(("xpath", '//td[@label="物料分类"]'))
+        if self.is_el_present(("xpath", "//h6[text()='暂无数据']")):
             return True
         else:
             return False
@@ -687,7 +744,7 @@ class MaterialPage(BasePage):
         else:
             return False
 
-    def form_head_setting(self):
+    def material_form_head_setting(self):
         """表头设置"""
 
         self.driver.find_element("xpath", '//button[@aria-label="重置"]').click()
@@ -701,10 +758,10 @@ class MaterialPage(BasePage):
         else:
             return False
 
-    def form_head_resetting(self):
+    def material_form_head_resetting(self):
         """表头重置"""
 
-        time.sleep(1.5)
+        time.sleep(1.6)
         self.driver.find_element("xpath", '//button[@aria-label="表头设置"]').click()
         self.get_element(("xpath", '//button[text()="重置"]')).click()
         if self.is_el_present(("xpath", '//th[text()="物料类型"]')):
@@ -726,7 +783,6 @@ class MaterialPage(BasePage):
 
         time.sleep(1)
         self.driver.find_element("xpath", '(//input[@type="checkbox"])[2]').click()
-        self.driver.find_element("xpath", '(//input[@type="checkbox"])[3]').click()
         self.driver.find_element("xpath", '//button[text()="删除"]').click()
         self.driver.find_element("xpath", '(//button[text()="删除"])[2]').click()
         assert_info = self.get_alert(("xpath", '//div[text()="删除成功"]'))

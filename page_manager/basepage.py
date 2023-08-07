@@ -37,7 +37,7 @@ class BasePage:
 
     env = EnvironMent()
 
-    @get_driver
+
     def __init__(self):
         """webdriver.Chrome(ChromeDriverManager().install()) 当前没有115版本的驱动，下载114使用"""
 

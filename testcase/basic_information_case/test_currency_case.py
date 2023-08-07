@@ -14,9 +14,10 @@ class TestCurrency:
         cls.currency = CurrencyPage()
         cls.currency.goto_currency_page()
 
-    # def teardown_class(self):
-    #
-    #     self.currency.driver.quit()
+    @classmethod
+    def teardown_class(cls):
+
+        cls.currency.driver.quit()
 
     @pytest.mark.P0
     @allure.testcase(url="", name='新增币种')
@@ -58,6 +59,13 @@ class TestCurrency:
     def test_create_currency_two(self):
 
         assert_info = self.currency.create_currency_two()
+        self.currency.assert_allure_screenshot(assert_info, "新增成功")
+
+    @pytest.mark.P2
+    @allure.testcase(url="", name='新增币种3')
+    def test_create_currency_three(self):
+
+        assert_info = self.currency.create_currency_three()
         self.currency.assert_allure_screenshot(assert_info, "新增成功")
 
     @pytest.mark.P0

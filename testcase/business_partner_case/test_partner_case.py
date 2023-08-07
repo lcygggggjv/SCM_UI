@@ -141,6 +141,13 @@ class TestPartnerPage:
         self.partner.assert_allure_screenshot(assert_info, "新增成功")
 
     @pytest.mark.P2
+    @allure.testcase(url="", name='新增业务伙伴3')
+    def test_create_partner_three(self):
+
+        assert_info = self.partner.create_partner_three()
+        self.partner.assert_allure_screenshot(assert_info, "新增成功")
+
+    @pytest.mark.P2
     @allure.testcase(url="", name='编辑业务伙伴')
     def test_update_partner(self):
 
@@ -428,7 +435,7 @@ class TestPartnerPage:
 
     @pytest.mark.P1
     @allure.testcase(url="", name='详情删除业务伙伴')
-    def test_detail_delete(self):
+    def test_partner_detail_delete(self):
 
-        assert_info = self.partner.detail_delete()
+        assert_info = self.partner.partner_detail_delete()
         self.partner.assert_allure_screenshot(assert_info, "删除失败")

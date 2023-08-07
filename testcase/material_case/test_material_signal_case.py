@@ -61,6 +61,13 @@ class TestMaterialSignal:
         assert_info = self.signal.create_signal_two()
         self.signal.assert_allure_screenshot(assert_info, '新增成功')
 
+    @pytest.mark.P2
+    @allure.testcase(url='', name="新增物料信号3")
+    def test_create_signal_three(self):
+
+        assert_info = self.signal.create_signal_three()
+        self.signal.assert_allure_screenshot(assert_info, '新增成功')
+
     @pytest.mark.P0
     @allure.testcase(url='', name="编辑物料信号")
     def test_update_signal(self):

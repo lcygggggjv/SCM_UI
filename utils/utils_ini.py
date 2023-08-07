@@ -55,5 +55,5 @@ if __name__ == '__main__':
 
     ss = c.get_env_url()
 
-    d = c.account()
-    print(ss)
+    d = c.tenantcode()
+    print(d)

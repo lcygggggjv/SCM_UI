@@ -95,6 +95,20 @@ class TestMaterial:
         assert_info = self.mt.create_material_two()
         self.mt.assert_allure_screenshot(assert_info, '新增成功')
 
+    @pytest.mark.P2
+    @allure.testcase(url='', name="新增物料3")
+    def test_create_material_three(self):
+
+        assert_info = self.mt.create_material_three()
+        self.mt.assert_allure_screenshot(assert_info, '新增成功')
+
+    @pytest.mark.P2
+    @allure.testcase(url='', name="新增物料4")
+    def test_create_material_four(self):
+
+        assert_info = self.mt.create_material_four()
+        self.mt.assert_allure_screenshot(assert_info, '新增成功')
+
     @pytest.mark.P0
     @allure.testcase(url='', name="编辑物料")
     def test_update_material(self):
@@ -419,16 +433,16 @@ class TestMaterial:
 
     @pytest.mark.P2
     @allure.testcase(url="", name='表头设置')
-    def test_form_head_setting(self):
+    def test_material_form_head_setting(self):
 
-        assert_info = self.mt.form_head_setting()
+        assert_info = self.mt.material_form_head_setting()
         self.mt.assert_allure_screenshot(assert_info, False)
 
     @pytest.mark.P2
     @allure.testcase(url="", name='表头重置')
-    def test_form_head_resetting(self):
+    def test_material_form_head_resetting(self):
 
-        assert_info = self.mt.form_head_resetting()
+        assert_info = self.mt.material_form_head_resetting()
         self.mt.assert_allure_screenshot(assert_info, True)
 
     @pytest.mark.P0

@@ -72,6 +72,18 @@ class CurrencyPage(BasePage):
         assert_info = self.get_alert(("xpath", "//div[text()='新增成功']"))
         return assert_info
 
+    def create_currency_three(self):
+        """新增币种3"""
+        time.sleep(1.5)
+        self.driver.find_element("xpath", "//button[text()='新增币种']").click()
+        self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]') \
+            .send_keys(self.mock.faker_pystr())
+        self.driver.find_element("xpath", '//input[@name="name"][@placeholder="请输入"]') \
+            .send_keys(self.mock.faker_pystr())
+        self.driver.find_element("xpath", "//button[text()='确定']").click()
+        assert_info = self.get_alert(("xpath", "//div[text()='新增成功']"))
+        return assert_info
+
     def setting_default_currency(self):
         """设置默认币种"""
 
@@ -157,7 +169,7 @@ class CurrencyPage(BasePage):
         """批量删除币种"""
 
         time.sleep(1.5)
-        self.driver.find_element("xpath", '(//span[@aria-label="勾选当页"])[1]').click()
+        self.driver.find_element("xpath", '(//input[@type="checkbox"])[2]').click()
         self.driver.find_element("xpath", "//button[text()='删除']").click()
         self.driver.find_element("xpath", "(//button[text()='删除'])[2]").click()
         assert_info = self.get_alert(("xpath", "//div[text()='删除成功']"))

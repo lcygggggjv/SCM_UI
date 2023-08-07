@@ -62,10 +62,13 @@ class MaterialCategoryPage(BasePage):
         self.driver.find_element("xpath", "//button[text()='取消']").click()
         return assert_info
 
-    def create_two_category(self):
-        """新增2分类，为了后面的编辑唯一性"""
-        # time.sleep(1)
-        self.driver.find_element('xpath', "//button[text()='新增一级分类']").click()
+    def create_one_category(self):
+        """新增一级分类"""
+        time.sleep(1)
+        self.driver.find_element("xpath", '(//div[@style="position: relative;"]//div[@role="button"])[1]').click()
+        self.driver.find_element("xpath", '(//button[@class="MuiButtonBase-root MuiIconButton-root MuiIconButton-'
+                                          'sizeSmall css-v765fw"])[4]').click()
+        self.driver.find_element("xpath", "(//ul//li[text()='新增下属分类'])[1]").click()
         self.driver.find_element("xpath", "//input[@name='no']").send_keys(Mock.faker_pystr())
         self.driver.find_element("xpath", "//input[@name='name']").send_keys(Mock.faker_pystr())
         self.driver.find_element("xpath", "//button[text()='确定']").click()
@@ -74,7 +77,7 @@ class MaterialCategoryPage(BasePage):
 
     def update_category(self):
         """编辑物料分类"""
-        time.sleep(2.1)
+        time.sleep(2.3)
         self.driver.find_element("xpath", '(//div[@style="position: relative;"]//div[@role="button"])[1]').click()
         self.driver.find_element("xpath", '(//button[@class="MuiButtonBase-root MuiIconButton-'
                                           'root MuiIconButton-sizeSmall css-v765fw"])[4]').click()
@@ -133,23 +136,20 @@ class MaterialCategoryPage(BasePage):
         assert_info = self.get_alert(("xpath", "//div[text()='删除成功']"))
         return assert_info
 
-    def create_one_category(self):
-        """新增一级分类"""
-        time.sleep(1)
-        self.driver.find_element("xpath", '(//div[@style="position: relative;"]//div[@role="button"])[1]').click()
-        self.driver.find_element("xpath", '(//button[@class="MuiButtonBase-root MuiIconButton-root MuiIconButton-'
-                                          'sizeSmall css-v765fw"])[4]').click()
-        self.driver.find_element("xpath", "(//ul//li[text()='新增下属分类'])[1]").click()
-        self.driver.find_element("xpath", "//input[@name='no']").send_keys(Mock.faker_pystr())
-        self.driver.find_element("xpath", "//input[@name='name']").send_keys(Mock.faker_pystr())
-        self.driver.find_element("xpath", "//button[text()='确定']").click()
-        assert_info = self.get_alert(("xpath", "//div[text()='新增成功']"))
-        return assert_info
-
-    def search_category(self):
+    def search_material_category(self):
         """搜索分类"""
 
         self.driver.find_element("xpath", "(//input[@placeholder='请搜索'])[2]").send_keys('999999')
         time.sleep(1.8)
         assert_info = self.get_alert(("xpath", "//div[text()='999999']"))
+        return assert_info
+
+    def create_two_category(self):
+        """新增2分类，为了后面的编辑唯一性"""
+        time.sleep(1)
+        self.driver.find_element('xpath', "//button[text()='新增一级分类']").click()
+        self.driver.find_element("xpath", "//input[@name='no']").send_keys(Mock.faker_pystr())
+        self.driver.find_element("xpath", "//input[@name='name']").send_keys(Mock.faker_pystr())
+        self.driver.find_element("xpath", "//button[text()='确定']").click()
+        assert_info = self.get_alert(("xpath", "//div[text()='新增成功']"))
         return assert_info

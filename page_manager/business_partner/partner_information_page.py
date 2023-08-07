@@ -228,6 +228,37 @@ class PartnerPage(BasePage):
         assert_info = self.get_alert(("xpath", "//div[text()='新增成功']"))
         return assert_info
 
+    def create_partner_three(self):
+        """新增业务伙伴3"""
+
+        time.sleep(1.5)
+        self.driver.find_element("xpath", '//input[@name="no"][@placeholder="请输入"]').send_keys(self.mock.faker_pystr())
+        self.driver.find_element("xpath", '(//div[@name="partnerType"]//input[@type="checkbox"])[1]').click()
+        self.driver.find_element("xpath", '//input[@name="name"][@placeholder="请输入"]')\
+            .send_keys(self.mock.faker_pystr())
+        self.driver.find_element("xpath", '//input[@name="abbreviation"][@placeholder="请输入"]')\
+            .send_keys(self.mock.faker_pystr())
+        self.driver.find_element("xpath", '//input[@name="expectedAt"]').click()
+        self.driver.find_element("xpath", '(//button[@role="gridcell"][text()="1"])[1]').click()
+        self.driver.find_element("xpath", '(//button[@role="gridcell"][text()="28"])[2]').click()
+        self.driver.find_element("xpath", '//div[@name="defaultCurrency"]//input[@role="combobox"]').click()
+        self.driver.find_element("xpath", '//li[@data-option-index="0"]').click()
+        self.driver.find_element("xpath", '//input[@name="creditCode"]').send_keys(self.mock.faker_num_18())
+        self.driver.find_element("xpath", '//input[@name="licenseCode"]').send_keys(self.mock.faker_num_18())
+        self.driver.find_element("xpath", '//div[@name="companyAddr"]//input[@role="combobox"]').click()
+        self.driver.find_element("xpath", '//span[text()="中国香港"]').click()
+        self.driver.find_element("xpath", '//input[@name="address"]').send_keys(self.mock.faker_pystr())
+        self.driver.find_element("xpath", '//input[@name="remark"]').send_keys(self.mock.faker_pystr())
+        self.driver.find_element("xpath", '//input[@name="contactList.0.name"]').send_keys(self.mock.faker_pystr())
+        self.driver.find_element("xpath", '//input[@name="contactList.0.phone"]').send_keys(self.mock.rand_phone_num())
+        self.driver.find_element("xpath", '//input[@name="contactList.0.fixedPhone"]').send_keys(self.mock.ran_phone2())
+        self.driver.find_element("xpath", '//input[@name="contactList.0.position"]').send_keys(self.mock.faker_pystr())
+        self.driver.find_element("xpath", '//input[@name="contactList.0.remark"]').send_keys(self.mock.faker_pystr())
+        self.driver.find_element("xpath", '(//div[@style="opacity: 1;"])[2]//button').click()
+        self.driver.find_element("xpath", "//button[text()='确定']").click()
+        assert_info = self.get_alert(("xpath", "//div[text()='新增成功']"))
+        return assert_info
+
     def update_partner(self):
         """编辑业务伙伴"""
 
@@ -436,9 +467,6 @@ class PartnerPage(BasePage):
         assert_info = self.get_alert(("xpath", '//div[text()="请填写该必填项"]'))
         return assert_info
 
-    # def create_account_uniqueness(self):
-    #     """创建业务伙伴账号唯一性校验校验"""
-
     def create_account_length(self):
         """创建业务伙伴账号长度校验"""
 
@@ -636,7 +664,7 @@ class PartnerPage(BasePage):
         assert_info = self.get_alert(("xpath", '//div[text()="删除成功"]'))
         return assert_info
 
-    def detail_delete(self):
+    def partner_detail_delete(self):
         """详情删除"""
 
         time.sleep(1)
