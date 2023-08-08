@@ -4,7 +4,7 @@
 
 ### 1.安装依赖库
 
-pip install install -r requirements.txt
+pip install -r requirements.txt
 
 ### 2.运行测试用例
 
