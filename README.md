@@ -24,7 +24,7 @@ pip install -r requirements.txt
 
 ### 实现细节:
 
-1.page_manger包内含封装的一些页面方法，关于元素定位基本采用Xpath定位方式，并灵活运用Xpath轴定位及显式等待方式令脚本整体稳定性得到较大提升。
+1.page_manager包内含封装的一些页面方法，关于元素定位基本采用Xpath定位方式，并灵活运用Xpath轴定位及显式等待方式令脚本整体稳定性得到较大提升。
 
 2.basepage.py文件内含一些页面跳转，及显性等待，双击删除，判断元素存在和获取alert信息等公共方法。
 
