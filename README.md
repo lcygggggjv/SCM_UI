@@ -30,4 +30,4 @@ pip install -r requirements.txt
 
 3.utils包内含一些工具类：读取环境，账号，密码等数据。common包含所需mock数据。
 
-4.test_case包内含测试用例方法，其中灵活使用parametrize/fixture等装饰器实现用例参数化、前后置操作及其他具体需求。
+4.test_case包内含测试用例方法，其中灵活使用setup_class，teardown_class前后置操作及其他具体需求。
