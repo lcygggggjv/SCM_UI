@@ -8,6 +8,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from utils.utils_ini import EnvironMent
 from hamcrest import assert_that, equal_to
 import allure
+from common.test_demo1 import NewDownLoadUrl
 
 
 def get_driver(cls):
@@ -38,9 +39,10 @@ class BasePage:
     env = EnvironMent()
 
     def __init__(self):
-        """webdriver.Chrome(ChromeDriverManager().install()) 当前没有115版本的驱动，下载114使用"""
 
-        self.driver = webdriver.Chrome()
+        new_manger = NewDownLoadUrl()
+        # driver_path = new_manger.install()
+        self.driver = webdriver.Chrome(service=new_manger.install())
         self.driver.implicitly_wait(15)
         self.login_setup()
 
