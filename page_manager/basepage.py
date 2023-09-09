@@ -40,9 +40,9 @@ class BasePage:
 
     def __init__(self):
 
-        new_manger = NewDownLoadUrl()
-        # driver_path = new_manger.install()
-        self.driver = webdriver.Chrome(service=new_manger.install())
+        # new_manger = NewDownLoadUrl()
+        # # driver_path = new_manger.install()
+        self.driver = webdriver.Chrome()
         self.driver.implicitly_wait(15)
         self.login_setup()
 
